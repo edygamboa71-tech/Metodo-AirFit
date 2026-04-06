@@ -1,0 +1,88 @@
+import { motion } from 'motion/react';
+import { ArrowLeft } from 'lucide-react';
+
+interface VerticalOption {
+  id: string;
+  label: string;
+  imageUrl: string;
+}
+
+interface VerticalSelectionStepProps {
+  title: string;
+  options: VerticalOption[];
+  onSelect: (id: string) => void;
+  onBack: () => void;
+  progress: number;
+}
+
+export default function VerticalSelectionStep({ 
+  title, 
+  options, 
+  onSelect, 
+  onBack, 
+  progress 
+}: VerticalSelectionStepProps) {
+  return (
+    <div className="min-h-screen bg-white flex flex-col items-center">
+      {/* Header */}
+      <header className="w-full max-w-[600px] h-16 flex items-center px-4 relative">
+        <button 
+          onClick={onBack}
+          className="p-2 hover:bg-gray-100 rounded-full transition-colors z-10"
+        >
+          <ArrowLeft size={24} className="text-text-main" />
+        </button>
+        
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-primary font-bold text-xl tracking-tight">AirFit™</span>
+        </div>
+      </header>
+
+      {/* Progress Bar */}
+      <div className="w-full max-w-[600px] h-1.5 bg-gray-100 overflow-hidden">
+        <motion.div 
+          initial={{ width: '22%' }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="h-full bg-primary"
+        />
+      </div>
+
+      <main className="w-full max-w-[600px] px-6 py-10 flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full"
+        >
+          <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
+            {title}
+          </h1>
+
+          <div className="flex flex-col gap-4 w-full">
+            {options.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => onSelect(option.id)}
+                className="group w-full h-[120px] bg-[#F5F5F5] rounded-[24px] overflow-hidden flex items-center justify-between border-2 border-transparent hover:border-primary/30 active:border-primary transition-all text-left shadow-sm hover:shadow-xl hover:-translate-y-0.5"
+              >
+                <div className="pl-8 flex-grow">
+                  <span className="text-text-main font-bold text-lg">{option.label}</span>
+                </div>
+                <div className="h-full w-[140px] shrink-0 relative">
+                  <img 
+                    src={option.imageUrl} 
+                    alt={option.label} 
+                    className="w-full h-full object-cover object-center"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5] via-transparent to-transparent" />
+                </div>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      </main>
+    </div>
+  );
+}
