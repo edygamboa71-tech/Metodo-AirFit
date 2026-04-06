@@ -528,11 +528,11 @@ export default function OfferPage({ userData }: OfferPageProps) {
             <div 
               onClick={() => setSelectedPlan('7days')}
               className={`p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-center gap-4 ${
-                selectedPlan === '7days' ? 'border-primary bg-white shadow-md' : 'border-transparent bg-white/50'
+                selectedPlan === '7days' ? 'border-[#32CD32] bg-white shadow-md' : 'border-transparent bg-white/50'
               }`}
             >
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === '7days' ? 'border-primary' : 'border-gray-300'}`}>
-                {selectedPlan === '7days' && <div className="w-3 h-3 rounded-full bg-primary" />}
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === '7days' ? 'border-[#32CD32]' : 'border-gray-300'}`}>
+                {selectedPlan === '7days' && <div className="w-3 h-3 rounded-full bg-[#32CD32]" />}
               </div>
               <div className="flex-grow">
                 <p className="font-bold text-lg">ACCESO 7 DÍAS</p>
@@ -547,21 +547,21 @@ export default function OfferPage({ userData }: OfferPageProps) {
             <div 
               onClick={() => setSelectedPlan('full')}
               className={`p-5 rounded-2xl border-2 transition-all cursor-pointer relative flex items-center gap-4 ${
-                selectedPlan === 'full' ? 'border-primary bg-white shadow-xl scale-[1.02]' : 'border-transparent bg-white/50'
+                selectedPlan === 'full' ? 'border-[#32CD32] bg-white shadow-xl scale-[1.02]' : 'border-transparent bg-white/50'
               }`}
             >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#32CD32] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
                 Más Popular - Ahorro $63.64
               </div>
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === 'full' ? 'border-primary' : 'border-gray-300'}`}>
-                {selectedPlan === 'full' && <div className="w-3 h-3 rounded-full bg-primary" />}
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === 'full' ? 'border-[#32CD32]' : 'border-gray-300'}`}>
+                {selectedPlan === 'full' && <div className="w-3 h-3 rounded-full bg-[#32CD32]" />}
               </div>
               <div className="flex-grow">
                 <p className="font-bold text-lg">ACCESO COMPLETO</p>
                 <p className="text-xs text-gray-500">Valor original <span className="line-through">$79.63</span></p>
               </div>
               <div className="text-right">
-                <p className="font-black text-2xl text-primary">$15<sup className="text-sm">99</sup></p>
+                <p className="font-black text-2xl text-[#32CD32]">$15<sup className="text-sm">99</sup></p>
               </div>
             </div>
 
@@ -569,11 +569,11 @@ export default function OfferPage({ userData }: OfferPageProps) {
             <div 
               onClick={() => setSelectedPlan('coaching')}
               className={`p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-center gap-4 ${
-                selectedPlan === 'coaching' ? 'border-primary bg-white shadow-md' : 'border-transparent bg-white/50'
+                selectedPlan === 'coaching' ? 'border-[#32CD32] bg-white shadow-md' : 'border-transparent bg-white/50'
               }`}
             >
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === 'coaching' ? 'border-primary' : 'border-gray-300'}`}>
-                {selectedPlan === 'coaching' && <div className="w-3 h-3 rounded-full bg-primary" />}
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === 'coaching' ? 'border-[#32CD32]' : 'border-gray-300'}`}>
+                {selectedPlan === 'coaching' && <div className="w-3 h-3 rounded-full bg-[#32CD32]" />}
               </div>
               <div className="flex-grow">
                 <p className="font-bold text-lg">PRECIO DEL PLAN</p>
@@ -587,7 +587,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
 
           <a 
             href="https://pay.hotmart.com/I105199504V?checkoutMode=10"
-            className="w-full h-[72px] bg-primary text-white rounded-2xl font-black text-xl mt-8 shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-tight flex items-center justify-center"
+            className="w-full h-[72px] bg-[#32CD32] text-white rounded-2xl font-black text-xl mt-8 shadow-xl shadow-[#32CD32]/30 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-tight flex items-center justify-center"
           >
             Obtener mi plan AirFit™
           </a>
@@ -659,7 +659,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
 
           <a 
             href="https://pay.hotmart.com/I105199504V?checkoutMode=10"
-            className="w-full h-[64px] bg-primary text-white rounded-2xl font-black text-lg mt-10 shadow-lg shadow-primary/20 flex items-center justify-center"
+            className="w-full h-[64px] bg-[#32CD32] text-white rounded-2xl font-black text-lg mt-10 shadow-lg shadow-[#32CD32]/20 flex items-center justify-center"
           >
             OBTENER ACCESO COMPLETO - $15.99
           </a>
@@ -803,7 +803,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
         <div className="w-full space-y-4">
           <a 
             href="https://pay.hotmart.com/I105199504V?checkoutMode=10"
-            className="w-full h-[72px] bg-primary text-white rounded-2xl font-black text-xl shadow-2xl shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-tight flex items-center justify-center"
+            className="w-full h-[72px] bg-[#32CD32] text-white rounded-2xl font-black text-xl shadow-2xl shadow-[#32CD32]/40 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-tight flex items-center justify-center"
           >
             Comenzar mi transformación
           </a>
