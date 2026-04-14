@@ -29,7 +29,10 @@ import {
   Area
 } from 'recharts';
 
+import { Language, translations } from '../translations';
+
 interface OfferPageProps {
+  lang: Language;
   userData: {
     gender: string | null;
     goals: string[];
@@ -51,7 +54,8 @@ interface OfferPageProps {
   };
 }
 
-export default function OfferPage({ userData }: OfferPageProps) {
+export default function OfferPage({ userData, lang }: OfferPageProps) {
+  const t = translations[lang];
   const [timeLeft, setTimeLeft] = useState(894); // 14:54 in seconds
   const [selectedPlan, setSelectedPlan] = useState('full');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -82,15 +86,15 @@ export default function OfferPage({ userData }: OfferPageProps) {
   const targetImc = Number((predictedWeight21Days / (heightInMeters * heightInMeters)).toFixed(1));
   const targetBodyFat = Number(((1.20 * targetImc) + (0.23 * userData.age) - (10.8 * genderValue) - 5.4).toFixed(1));
 
-  const weightToChangeLabel = isWeightLoss ? 'pérdida de peso' : isWeightGain ? 'ganancia muscular' : 'transformación';
+  const weightToChangeLabel = isWeightLoss ? 'weight loss' : isWeightGain ? 'muscle gain' : 'transformation';
 
   // Statistical Simulation Data
   const chartData = [
-    { day: 'Día 1', weight: startWeight },
-    { day: 'Día 7', weight: Number((startWeight + weeklyChange).toFixed(1)) },
-    { day: 'Día 14', weight: Number((startWeight + weeklyChange * 2).toFixed(1)) },
-    { day: 'Día 21', weight: predictedWeight21Days },
-    { day: 'Día 28', weight: Number((startWeight + weeklyChange * 4).toFixed(1)) },
+    { day: 'Day 1', weight: startWeight },
+    { day: 'Day 7', weight: Number((startWeight + weeklyChange).toFixed(1)) },
+    { day: 'Day 14', weight: Number((startWeight + weeklyChange * 2).toFixed(1)) },
+    { day: 'Day 21', weight: predictedWeight21Days },
+    { day: 'Day 28', weight: Number((startWeight + weeklyChange * 4).toFixed(1)) },
   ];
 
   const [isCalculating, setIsCalculating] = useState(true);
@@ -132,9 +136,9 @@ export default function OfferPage({ userData }: OfferPageProps) {
   }, [isCalculating]);
 
   const stats = [
-    { label: 'Eficiencia Metabólica', value: `${animatedEfficiency}%`, color: 'bg-green-500' },
-    { label: 'Probabilidad de Éxito', value: `${animatedProbability}%`, color: 'bg-blue-500' },
-    { label: 'Adherencia Estimada', value: `${animatedAdherence}%`, color: 'bg-purple-500' },
+    { label: 'Metabolic Efficiency', value: `${animatedEfficiency}%`, color: 'bg-green-500' },
+    { label: 'Success Probability', value: `${animatedProbability}%`, color: 'bg-blue-500' },
+    { label: 'Estimated Adherence', value: `${animatedAdherence}%`, color: 'bg-purple-500' },
   ];
 
   const beforeImage = userData.gender === 'male' 
@@ -190,13 +194,13 @@ export default function OfferPage({ userData }: OfferPageProps) {
   };
 
   const faqs = [
-    { q: "¿Funcionan las recetas con cualquier marca de freidora de aire?", a: "¡Sí! Nuestras recetas están diseñadas para ser universales. Además, el Chef AirFit™ IA puede ayudarte a ajustar los tiempos específicos según la potencia de tu modelo." },
-    { q: "¿Qué tan difíciles son las rutinas de ejercicio?", a: "Están diseñadas para todos los niveles. Son rutinas de 15-20 minutos que puedes hacer en casa sin equipo especial, enfocadas en maximizar la quema de grasa." },
-    { q: "¿Realmente puedo ver resultados en solo 21 días?", a: "Sí, el protocolo está optimizado para generar un déficit calórico saludable pero efectivo. La mayoría de nuestros usuarios reportan cambios visibles en las primeras 2 semanas." },
-    { q: "¿Los agentes de IA funcionan en cualquier momento?", a: "¡24/7! Están disponibles en todo momento para resolver tus dudas sobre compras, recetas o sustitución de ingredientes de forma instantánea." },
-    { q: "¿Qué pasa si no me gustan algunas recetas?", a: "El Chef IA te ofrecerá alternativas deliciosas basadas en tus gustos y lo que tengas en tu despensa en ese momento." },
-    { q: "¿Necesito comprar ingredientes caros o raros?", a: "Para nada. El Asistente de Compras IA prioriza ingredientes accesibles y de temporada para que ahorres dinero mientras comes saludable." },
-    { q: "¿Qué tan rápido obtendré acceso después del pago?", a: "El acceso es instantáneo. Recibirás un correo con todos tus materiales y el acceso a tus agentes de IA personalizados de inmediato." },
+    { q: "Do the recipes work with any air fryer brand?", a: "Yes! Our recipes are designed to be universal. Plus, the AI AirFit™ Chef can help you adjust specific times based on your model's power." },
+    { q: "How difficult are the exercise routines?", a: "They are designed for all levels. They are 15-20 minute routines you can do at home without special equipment, focused on maximizing fat burn." },
+    { q: "Can I really see results in just 21 days?", a: "Yes, the protocol is optimized to generate a healthy but effective calorie deficit. Most of our users report visible changes in the first 2 weeks." },
+    { q: "Do the AI agents work at any time?", a: "24/7! They are available at all times to instantly resolve your questions about shopping, recipes, or ingredient substitution." },
+    { q: "What if I don't like some recipes?", a: "The AI Chef will offer you delicious alternatives based on your tastes and what you have in your pantry at that moment." },
+    { q: "Do I need to buy expensive or rare ingredients?", a: "Not at all. The AI Shopping Assistant prioritizes accessible and seasonal ingredients so you save money while eating healthy." },
+    { q: "How fast will I get access after payment?", a: "Access is instant. You will receive an email with all your materials and access to your personalized AI agents immediately." },
   ];
 
   return (
@@ -205,11 +209,11 @@ export default function OfferPage({ userData }: OfferPageProps) {
       <div className="w-full bg-black text-white py-3 px-4 flex flex-col items-center sticky top-0 z-50">
         <div className="flex items-center gap-2 text-sm font-bold">
           <Clock size={16} className="text-primary" />
-          <span>Tu resultado reservado por:</span>
+          <span>Your result reserved for:</span>
           <span className="bg-primary px-2 py-0.5 rounded text-white font-mono">
             {formatTime(timeLeft)}
           </span>
-          <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded uppercase tracking-wider">Crear ahora</span>
+          <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded uppercase tracking-wider">Create now</span>
         </div>
       </div>
 
@@ -218,14 +222,14 @@ export default function OfferPage({ userData }: OfferPageProps) {
         <section className="w-full bg-white rounded-3xl p-6 shadow-xl mb-8">
           <div className="flex justify-between items-center mb-6">
             <div className="text-center flex-1">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Antes</p>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Before</p>
               <div className="aspect-[3/4] rounded-2xl overflow-hidden ring-1 ring-black/5 bg-slate-50 relative">
                 <motion.img 
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8 }}
                   src={beforeImage} 
-                  alt="Antes" 
+                  alt="Before" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -234,7 +238,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
             </div>
             <div className="px-4 text-primary font-black text-2xl">≫</div>
             <div className="text-center flex-1">
-              <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Meta</p>
+              <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Goal</p>
               <div className="aspect-[3/4] rounded-2xl overflow-hidden ring-2 ring-primary shadow-lg bg-red-50 relative group">
                 <AnimatePresence>
                   {isCalculating && (
@@ -249,7 +253,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
                         className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full mb-3"
                       />
                       <p className="text-[10px] font-black text-white uppercase tracking-widest animate-pulse">
-                        Procesando Genotipo...
+                        Processing Genotype...
                       </p>
                     </motion.div>
                   )}
@@ -262,7 +266,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 >
                   <img 
                     src={afterImage} 
-                    alt="Meta" 
+                    alt="Goal" 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
@@ -281,12 +285,12 @@ export default function OfferPage({ userData }: OfferPageProps) {
           <div className="space-y-4">
             <div>
               <div className="flex justify-between text-sm font-bold mb-1">
-                <span>Grasa corporal</span>
+                <span>Body fat</span>
                 <motion.span 
                   className="text-primary font-mono"
                 >
                   {isCalculating ? (
-                    <span className="animate-pulse">Calculando...</span>
+                    <span className="animate-pulse">Calculating...</span>
                   ) : (
                     <span>{animatedCurrentBodyFat}% → {animatedTargetBodyFat}%</span>
                   )}
@@ -314,12 +318,12 @@ export default function OfferPage({ userData }: OfferPageProps) {
             </div>
             <div>
               <div className="flex justify-between text-sm font-bold mb-1">
-                <span>Peso (kg)</span>
+                <span>Weight (kg)</span>
                 <motion.span 
                   className="text-primary font-mono"
                 >
                   {isCalculating ? (
-                    <span className="animate-pulse">Calculando...</span>
+                    <span className="animate-pulse">Calculating...</span>
                   ) : (
                     <span>{animatedStartWeight} → {animatedPredictedWeight}</span>
                   )}
@@ -347,14 +351,14 @@ export default function OfferPage({ userData }: OfferPageProps) {
             </div>
             <div>
               <div className="flex justify-between text-sm font-bold mb-1">
-                <span>Nivel de fitness</span>
+                <span>Fitness level</span>
                 <motion.span 
                   className="text-primary font-mono"
                 >
                   {isCalculating ? (
-                    <span className="animate-pulse">Calculando...</span>
+                    <span className="animate-pulse">Calculating...</span>
                   ) : (
-                    <span>Mejora del {animatedFitnessImprovement}%</span>
+                    <span>{animatedFitnessImprovement}% improvement</span>
                   )}
                 </motion.span>
               </div>
@@ -387,13 +391,13 @@ export default function OfferPage({ userData }: OfferPageProps) {
             <div>
               <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight flex items-center gap-2">
                 <BarChart3 className="text-primary" />
-                Simulación Estadística
+                Statistical Simulation
               </h2>
-              <p className="text-slate-500 text-sm mt-1">Proyección de resultados basada en tu perfil metabólico</p>
+              <p className="text-slate-500 text-sm mt-1">Results projection based on your metabolic profile</p>
             </div>
             <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Motor de Cálculo Activo</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Calculation Engine</span>
             </div>
           </div>
 
@@ -401,11 +405,11 @@ export default function OfferPage({ userData }: OfferPageProps) {
             {/* Chart Area */}
             <div className="lg:col-span-2 bg-slate-50/50 rounded-3xl p-6 border border-slate-50">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Curva de Progreso Estimada</h3>
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Estimated Progress Curve</h3>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-[10px] font-bold text-slate-500">Peso (kg)</span>
+                    <span className="text-[10px] font-bold text-slate-500">Weight (kg)</span>
                   </div>
                 </div>
               </div>
@@ -458,15 +462,15 @@ export default function OfferPage({ userData }: OfferPageProps) {
             <div className="space-y-4">
               <div className="bg-slate-900 rounded-3xl p-6 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10"></div>
-                <h3 className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-4">Meta Final</h3>
+                <h3 className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-4">Final Goal</h3>
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-black">{animatedPredictedWeight}</span>
                   <span className="text-xl font-bold text-white/60">kg</span>
                 </div>
-                <p className="text-[10px] text-white/40 mt-2 font-bold uppercase tracking-wider">Objetivo en 21 días</p>
+                <p className="text-[10px] text-white/40 mt-2 font-bold uppercase tracking-wider">Goal in 21 days</p>
                 <div className="mt-6 flex items-center gap-2 text-primary text-xs font-black">
                   <TrendingUp size={14} />
-                  <span>-{absDiff.toFixed(1)}kg de diferencia total</span>
+                  <span>-{absDiff.toFixed(1)}kg total difference</span>
                 </div>
               </div>
 
@@ -500,16 +504,16 @@ export default function OfferPage({ userData }: OfferPageProps) {
         {/* Headline */}
         <div className="text-center mb-10">
           <h1 className="text-3xl md:text-4xl font-black text-black leading-tight mb-4">
-            ¡Tu plan personalizado de {weightToChangeLabel} está listo!
+            Your personalized {weightToChangeLabel} plan is ready!
           </h1>
           <div className="flex flex-wrap justify-center gap-4">
             <div className="flex items-center gap-1 text-green-600 font-bold text-sm">
               <Check size={18} />
-              <span>Plan verificado</span>
+              <span>Verified plan</span>
             </div>
             <div className="flex items-center gap-1 text-blue-600 font-bold text-sm">
               <Shield size={18} />
-              <span>Respaldado por expertos</span>
+              <span>Expert backed</span>
             </div>
           </div>
         </div>
@@ -519,7 +523,7 @@ export default function OfferPage({ userData }: OfferPageProps) {
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 flex items-center gap-3">
             <Zap size={20} className="text-yellow-600 fill-yellow-600" />
             <p className="text-sm font-bold text-yellow-800">
-              Esta oferta termina a las {new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              This offer ends at {new Date(Date.now() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </p>
           </div>
 
@@ -535,8 +539,8 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 {selectedPlan === '7days' && <div className="w-3 h-3 rounded-full bg-[#32CD32]" />}
               </div>
               <div className="flex-grow">
-                <p className="font-bold text-lg">ACCESO 7 DÍAS</p>
-                <p className="text-xs text-gray-500">Prueba todo el sistema</p>
+                <p className="font-bold text-lg">7-DAY ACCESS</p>
+                <p className="text-xs text-gray-500">Try the whole system</p>
               </div>
               <div className="text-right">
                 <p className="font-black text-2xl">$4<sup className="text-sm">99</sup></p>
@@ -551,14 +555,14 @@ export default function OfferPage({ userData }: OfferPageProps) {
               }`}
             >
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#32CD32] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
-                Más Popular - Ahorro $63.64
+                Most Popular - Save $63.64
               </div>
               <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedPlan === 'full' ? 'border-[#32CD32]' : 'border-gray-300'}`}>
                 {selectedPlan === 'full' && <div className="w-3 h-3 rounded-full bg-[#32CD32]" />}
               </div>
               <div className="flex-grow">
-                <p className="font-bold text-lg">ACCESO COMPLETO</p>
-                <p className="text-xs text-gray-500">Valor original <span className="line-through">$79.63</span></p>
+                <p className="font-bold text-lg">FULL ACCESS</p>
+                <p className="text-xs text-gray-500">Original value <span className="line-through">$79.63</span></p>
               </div>
               <div className="text-right">
                 <p className="font-black text-2xl text-[#32CD32]">$15<sup className="text-sm">99</sup></p>
@@ -576,8 +580,8 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 {selectedPlan === 'coaching' && <div className="w-3 h-3 rounded-full bg-[#32CD32]" />}
               </div>
               <div className="flex-grow">
-                <p className="font-bold text-lg">PRECIO DEL PLAN</p>
-                <p className="text-xs text-gray-500">Incluye coaching 1-a-1</p>
+                <p className="font-bold text-lg">PLAN PRICE</p>
+                <p className="text-xs text-gray-500">Includes 1-on-1 coaching</p>
               </div>
               <div className="text-right">
                 <p className="font-black text-2xl">$29<sup className="text-sm">99</sup></p>
@@ -586,19 +590,19 @@ export default function OfferPage({ userData }: OfferPageProps) {
           </div>
 
           <a 
-            href="https://pay.hotmart.com/I105199504V?checkoutMode=10"
+            href={t.offer.checkoutUrl}
             className="w-full h-[72px] bg-[#32CD32] text-white rounded-2xl font-black text-xl mt-8 shadow-xl shadow-[#32CD32]/30 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-tight flex items-center justify-center"
           >
-            Obtener mi plan AirFit™
+            Get my AirFit™ plan
           </a>
           <p className="text-[10px] text-center text-gray-400 mt-4 px-10">
-            ✓ Al hacer clic, acepto los Términos de Uso y la Política de Privacidad. Pago único, sin renovaciones automáticas.
+            ✓ By clicking, I accept the Terms of Use and Privacy Policy. One-time payment, no automatic renewals.
           </p>
         </section>
 
         {/* Deliverables */}
         <section className="w-full bg-white rounded-3xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-black text-center mb-8">🎁 Lo que obtienes hoy</h2>
+          <h2 className="text-2xl font-black text-center mb-8">🎁 What you get today</h2>
           
           <div className="space-y-6">
             <div className="flex gap-4">
@@ -606,8 +610,8 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 <span className="text-2xl">📚</span>
               </div>
               <div>
-                <h3 className="font-bold text-lg">Libro de recetas para freidora de aire</h3>
-                <p className="text-sm text-gray-500">100 recetas seleccionadas para resultados en 21 días sin renunciar al sabor crujiente que tanto amas.</p>
+                <h3 className="font-bold text-lg">Air Fryer Recipe Book</h3>
+                <p className="text-sm text-gray-500">100 selected recipes for results in 21 days without giving up the crispy flavor you love so much.</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -615,8 +619,8 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 <span className="text-2xl">📊</span>
               </div>
               <div>
-                <h3 className="font-bold text-lg">AirFit™ Tracker Pro "Plantilla"</h3>
-                <p className="text-sm text-gray-500">Sistema organizado para planificar tus comidas diarias y monitorear tu pérdida de peso sin complicaciones.</p>
+                <h3 className="font-bold text-lg">AirFit™ Tracker Pro "Template"</h3>
+                <p className="text-sm text-gray-500">Organized system to plan your daily meals and monitor your weight loss without complications.</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -624,8 +628,8 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 <span className="text-2xl">💪</span>
               </div>
               <div>
-                <h3 className="font-bold text-lg">Protocolo Quema-Grasa 21 Días</h3>
-                <p className="text-sm text-gray-500">Manual de rutinas de ejercicio complementarios diseñados para maximizar el déficit calórico en casa.</p>
+                <h3 className="font-bold text-lg">21-Day Fat-Burning Protocol</h3>
+                <p className="text-sm text-gray-500">Manual of complementary exercise routines designed to maximize calorie deficit at home.</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -633,105 +637,105 @@ export default function OfferPage({ userData }: OfferPageProps) {
                 <span className="text-2xl">🥗</span>
               </div>
               <div>
-                <h3 className="font-bold text-lg">Manual de Nutrición Aire-Salud</h3>
-                <p className="text-sm text-gray-500">Guía de mantenimiento a largo plazo para evitar el efecto rebote y consolidar tus nuevos hábitos.</p>
+                <h3 className="font-bold text-lg">Air-Health Nutrition Manual</h3>
+                <p className="text-sm text-gray-500">Long-term maintenance guide to avoid the rebound effect and consolidate your new habits.</p>
               </div>
             </div>
 
             <div className="pt-6 border-t border-gray-100">
-              <p className="text-xs font-black text-primary uppercase tracking-widest mb-4">Bonos exclusivos IA:</p>
+              <p className="text-xs font-black text-primary uppercase tracking-widest mb-4">Exclusive AI Bonuses:</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-slate-50 p-4 rounded-2xl text-center">
                   <span className="text-2xl mb-2 block">🤖</span>
-                  <p className="text-[10px] font-black leading-tight">Asistente de compras inteligente 24/7</p>
+                  <p className="text-[10px] font-black leading-tight">24/7 Smart Shopping Assistant</p>
                 </div>
                 <div className="bg-slate-50 p-4 rounded-2xl text-center">
                   <span className="text-2xl mb-2 block">👨‍🍳</span>
-                  <p className="text-[10px] font-black leading-tight">Chef AirFit™ Personal 24/7</p>
+                  <p className="text-[10px] font-black leading-tight">24/7 Personal AirFit™ Chef</p>
                 </div>
                 <div className="bg-slate-50 p-4 rounded-2xl text-center">
                   <span className="text-2xl mb-2 block">🛒</span>
-                  <p className="text-[10px] font-black leading-tight">Lista de Compras Inteligentes 24/7</p>
+                  <p className="text-[10px] font-black leading-tight">24/7 Smart Shopping List</p>
                 </div>
               </div>
             </div>
           </div>
 
           <a 
-            href="https://pay.hotmart.com/I105199504V?checkoutMode=10"
+            href={t.offer.checkoutUrl}
             className="w-full h-[64px] bg-[#32CD32] text-white rounded-2xl font-black text-lg mt-10 shadow-lg shadow-[#32CD32]/20 flex items-center justify-center"
           >
-            OBTENER ACCESO COMPLETO - $15.99
+            GET FULL ACCESS - $15.99
           </a>
         </section>
 
         {/* Testimonials */}
         <section className="w-full mb-12">
-          <h2 className="text-2xl font-black text-center mb-8">🏆 Historias de éxito</h2>
+          <h2 className="text-2xl font-black text-center mb-8">🏆 Success Stories</h2>
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-3xl shadow-md">
               <div className="flex gap-1 text-yellow-400 mb-3">
                 {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
               </div>
-              <h3 className="font-black text-xl mb-2">"¡Ya perdí 8 kg en 21 días!"</h3>
+              <h3 className="font-black text-xl mb-2">"I already lost 17 lbs in 21 days!"</h3>
               <div className="aspect-video rounded-2xl overflow-hidden mb-4 border border-gray-100">
                 <img 
                   src="https://i.imgur.com/ZHIYMWR.png" 
-                  alt="Resultado María G." 
+                  alt="Maria G. Result" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <p className="text-sm text-gray-600 italic mb-4">
-                "Nunca pensé que cocinar con freidora de aire pudiera ser tan fácil y efectivo. Las recetas son deliciosas y el Tracker Pro me ayudaron a mantenerme enfocada. Mi esposo no puede creer la transformación."
+                "I never thought cooking with an air fryer could be so easy and effective. The recipes are delicious and the Tracker Pro helped me stay focused. My husband can't believe the transformation."
               </p>
-              <p className="text-xs font-bold text-gray-400">— María G., 34 años</p>
+              <p className="text-xs font-bold text-gray-400">— Maria G., 34 years old</p>
             </div>
             <div className="bg-white p-6 rounded-3xl shadow-md">
               <div className="flex gap-1 text-yellow-400 mb-3">
                 {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
               </div>
-              <h3 className="font-black text-xl mb-2">"Perdí 6 kg y me siento increíble"</h3>
+              <h3 className="font-black text-xl mb-2">"I lost 13 lbs and feel amazing"</h3>
               <div className="aspect-video rounded-2xl overflow-hidden mb-4 border border-gray-100">
                 <img 
                   src="https://i.imgur.com/GslsmZN.jpeg" 
-                  alt="Resultado Roberto M." 
+                  alt="Roberto M. Result" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <p className="text-sm text-gray-600 italic mb-4">
-                "Como ejecutivo ocupado, necesitaba algo rápido. Las rutinas de 15 minutos del Protocolo Quema-Grasa son perfectas. Mi freidora pasó de estar guardada a ser mi mejor aliada."
+                "As a busy executive, I needed something fast. The 15-minute routines from the Fat-Burning Protocol are perfect. My air fryer went from being stored away to being my best ally."
               </p>
-              <p className="text-xs font-bold text-gray-400">— Roberto M., 30 años</p>
+              <p className="text-xs font-bold text-gray-400">— Roberto M., 30 years old</p>
             </div>
             <div className="bg-white p-6 rounded-3xl shadow-md">
               <div className="flex gap-1 text-yellow-400 mb-3">
                 {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
               </div>
-              <h3 className="font-black text-xl mb-2">"Bajé 2 tallas en solo 21 días"</h3>
+              <h3 className="font-black text-xl mb-2">"I dropped 2 sizes in just 21 days"</h3>
               <div className="aspect-video rounded-2xl overflow-hidden mb-4 border border-gray-100">
                 <img 
                   src="https://i.imgur.com/3XIAEDA.png" 
-                  alt="Resultado Carmen L." 
+                  alt="Carmen L. Result" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <p className="text-sm text-gray-600 italic mb-4">
-                "Los agentes de IA son geniales. El Chef Personal me ayudó a adaptar las recetas a lo que tenía en casa, y el Shopping Assistant me ahorró tiempo y dinero en el súper".
+                "The AI agents are great. The Personal Chef helped me adapt recipes to what I had at home, and the Shopping Assistant saved me time and money at the supermarket."
               </p>
-              <p className="text-xs font-bold text-gray-400">— Carmen L., 29 años</p>
+              <p className="text-xs font-bold text-gray-400">— Carmen L., 29 years old</p>
             </div>
           </div>
           <div className="mt-8 text-center">
-            <p className="text-primary font-black text-xl italic">⚡ ¡RESULTADOS VISIBLES EN SOLO 21 DÍAS!</p>
+            <p className="text-primary font-black text-xl italic">⚡ VISIBLE RESULTS IN JUST 21 DAYS!</p>
           </div>
         </section>
 
         {/* FAQ */}
         <section className="w-full mb-12">
-          <h2 className="text-2xl font-black text-center mb-8">¿TIENE PREGUNTAS?</h2>
+          <h2 className="text-2xl font-black text-center mb-8">HAVE QUESTIONS?</h2>
           <div className="space-y-2">
             {faqs.map((faq, idx) => (
               <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-sm">
@@ -767,10 +771,10 @@ export default function OfferPage({ userData }: OfferPageProps) {
               <div className="absolute inset-0 bg-yellow-400 rounded-full animate-pulse opacity-20" />
               <Award size={96} className="text-yellow-500" />
             </div>
-            <h2 className="text-2xl font-black mb-4 uppercase tracking-tight">🛡️ GARANTÍA BLINDADA DE 30 DÍAS</h2>
-            <p className="text-lg font-bold text-yellow-700 mb-6 italic">"GARANTÍA TOTAL"</p>
+            <h2 className="text-2xl font-black mb-4 uppercase tracking-tight">🛡️ 30-DAY IRONCLAD GUARANTEE</h2>
+            <p className="text-lg font-bold text-yellow-700 mb-6 italic">"TOTAL GUARANTEE"</p>
             <p className="text-sm text-gray-600 leading-relaxed mb-6">
-              Si no pierdes mínimo 5kg en 21 días o no estás 100% satisfecho, te devolvemos hasta el último centavo. Sin preguntas incómodas. Reembolso completo en 24 horas. Te quedas con todo el material.
+              If you don't lose at least 11 lbs in 21 days or aren't 100% satisfied, we'll refund every penny. No awkward questions. Full refund in 24 hours. You keep all the material.
             </p>
           </div>
         </section>
@@ -779,23 +783,23 @@ export default function OfferPage({ userData }: OfferPageProps) {
         <section className="w-full bg-red-50 rounded-3xl p-6 border-2 border-red-100 mb-12">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-3 h-3 bg-red-500 rounded-full animate-ping" />
-            <h3 className="font-black text-red-600 uppercase tracking-wider">⚠️ SOLO QUEDAN 47 ACCESOS HOY</h3>
+            <h3 className="font-black text-red-600 uppercase tracking-wider">⚠️ ONLY 47 ACCESSES LEFT TODAY</h3>
           </div>
           <p className="text-xs text-red-800 mb-6">
-            Debido a los recursos limitados de nuestros agentes de IA personalizados, solo podemos aceptar un número limitado de nuevos miembros diarios.
+            Due to the limited resources of our personalized AI agents, we can only accept a limited number of new members daily.
           </p>
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
-              <span>✅ Ana M. - hace 3 minutos</span>
+              <span>✅ Ana M. - 3 minutes ago</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
-              <span>✅ Luis R. - hace 7 minutos</span>
+              <span>✅ Luis R. - 7 minutes ago</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
-              <span>✅ Patricia S. - hace 11 minutos</span>
+              <span>✅ Patricia S. - 11 minutes ago</span>
             </div>
           </div>
         </section>
@@ -805,19 +809,19 @@ export default function OfferPage({ userData }: OfferPageProps) {
             href="https://pay.hotmart.com/I105199504V?checkoutMode=10"
             className="w-full h-[72px] bg-[#32CD32] text-white rounded-2xl font-black text-xl shadow-2xl shadow-[#32CD32]/40 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-tight flex items-center justify-center"
           >
-            Comenzar mi transformación
+            Start my transformation
           </a>
           <p className="text-[10px] text-center text-gray-400 px-10">
-            ✓ Acepto los Términos y Política de Privacidad
+            ✓ I accept the Terms and Privacy Policy
           </p>
         </div>
 
         {/* Footer */}
         <footer className="w-full mt-20 pt-10 border-t border-gray-200 text-center">
           <p className="text-[10px] text-gray-400 leading-relaxed mb-8 px-6">
-            Los resultados pueden variar de persona a persona. Consulte con su médico antes de comenzar cualquier programa de ejercicios. Esta oferta es por tiempo limitado y puede ser retirada en cualquier momento.
+            Results may vary from person to person. Consult with your doctor before starting any exercise program. This offer is for a limited time and can be withdrawn at any time.
           </p>
-          <p className="text-[10px] font-bold text-gray-500 mb-6">© 2024 AirFit™. Todos los derechos reservados.</p>
+          <p className="text-[10px] font-bold text-gray-500 mb-6">© 2024 AirFit™. All rights reserved.</p>
           
           <div className="flex justify-center gap-4 opacity-40 grayscale">
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-4" />

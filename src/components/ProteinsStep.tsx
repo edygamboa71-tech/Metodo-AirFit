@@ -10,18 +10,18 @@ interface ProteinsStepProps {
 }
 
 const foodOptions = [
-  { id: 'pollo', label: 'Pollo', emoji: '🍗' },
-  { id: 'pavo', label: 'Pavo', emoji: '🦃' },
-  { id: 'res', label: 'Res', emoji: '🥩' },
-  { id: 'pescado', label: 'Pescado', emoji: '🐟' },
-  { id: 'carne-roja', label: 'Carne roja', emoji: '🍖' },
-  { id: 'vegetales', label: 'Vegetales', emoji: '🥦' },
-  { id: 'salmon', label: 'Salmón', emoji: '🍣' },
-  { id: 'queso', label: 'Queso', emoji: '🧀' },
-  { id: 'atun', label: 'Atún', emoji: '🥫' },
-  { id: 'huevos', label: 'Huevos', emoji: '🥚' },
-  { id: 'leche', label: 'Leche', emoji: '🥛' },
-  { id: 'yogur', label: 'Yogur', emoji: '🍦' },
+  { id: 'pollo', label: 'Chicken', emoji: '🍗' },
+  { id: 'pavo', label: 'Turkey', emoji: '🦃' },
+  { id: 'res', label: 'Beef', emoji: '🥩' },
+  { id: 'pescado', label: 'Fish', emoji: '🐟' },
+  { id: 'carne-roja', label: 'Red meat', emoji: '🍖' },
+  { id: 'vegetales', label: 'Vegetables', emoji: '🥦' },
+  { id: 'salmon', label: 'Salmon', emoji: '🍣' },
+  { id: 'queso', label: 'Cheese', emoji: '🧀' },
+  { id: 'atun', label: 'Tuna', emoji: '🥫' },
+  { id: 'huevos', label: 'Eggs', emoji: '🥚' },
+  { id: 'leche', label: 'Milk', emoji: '🥛' },
+  { id: 'yogur', label: 'Yogurt', emoji: '🍦' },
 ];
 
 export default function ProteinsStep({ 
@@ -78,7 +78,7 @@ export default function ProteinsStep({
 
       <main className="w-full max-w-[600px] px-6 py-8 flex flex-col flex-grow overflow-y-auto">
         <h1 className="text-[24px] font-bold text-center leading-tight mb-8 text-text-main px-4">
-          ¿Te gustaría incluir alguno de estos productos de tu plan?
+          Would you like to include any of these products in your plan?
         </h1>
 
         <div className="w-full space-y-1">
@@ -97,11 +97,11 @@ export default function ProteinsStep({
               }`}>
                 {selectedIds.includes('all') && <Check size={16} className="text-white stroke-[3]" />}
               </div>
-              <span className="font-bold text-text-main">Los como todos</span>
+              <span className="font-bold text-text-main">I eat them all</span>
             </div>
           </button>
 
-          <p className="text-gray-400 font-bold text-sm pt-4 pb-2">Otros:</p>
+          <p className="text-gray-400 font-bold text-sm pt-4 pb-2">Others:</p>
 
           {/* Grid of options */}
           <div className="grid grid-cols-1 gap-1">
@@ -135,7 +135,7 @@ export default function ProteinsStep({
             onClick={() => onNext(selectedIds)}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Siguiente
+            Next
           </button>
         </div>
       </main>

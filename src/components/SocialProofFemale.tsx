@@ -30,22 +30,22 @@ export default function SocialProofFemale({ onNext, onBack }: SocialProofFemaleP
           className="w-full text-center"
         >
           <h1 className="text-[28px] md:text-[32px] font-bold leading-tight mb-8">
-            Más de <span className="text-primary">500.000</span> mujeres ya han transformado su cuerpo con AirFit™
+            Over <span className="text-primary">500,000</span> women have already transformed their bodies with AirFit™
           </h1>
 
           {/* Statistics */}
           <div className="flex flex-col gap-4 mb-10 text-left max-w-[400px] mx-auto">
             <div className="flex items-center gap-3">
               <CheckCircle2 className="text-success shrink-0" size={24} />
-              <p className="text-text-main font-medium">Pérdida de peso promedio: <span className="font-bold">6kg en 21 días</span></p>
+              <p className="text-text-main font-medium">Average weight loss: <span className="font-bold">13 lbs in 21 days</span></p>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle2 className="text-success shrink-0" size={24} />
-              <p className="text-text-main font-medium"><span className="font-bold">95%</span> reporta más energía diaria</p>
+              <p className="text-text-main font-medium"><span className="font-bold">95%</span> report more daily energy</p>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle2 className="text-success shrink-0" size={24} />
-              <p className="text-text-main font-medium"><span className="font-bold">90%</span> mantiene los resultados después de 6 meses</p>
+              <p className="text-text-main font-medium"><span className="font-bold">90%</span> maintain results after 6 months</p>
             </div>
           </div>
 
@@ -66,28 +66,28 @@ export default function SocialProofFemale({ onNext, onBack }: SocialProofFemaleP
               <div className="flex gap-2 mb-2">
                 <div className="relative w-1/2 aspect-square rounded-lg overflow-hidden">
                   <img src="https://i.imgur.com/zxsj4UY.jpeg" alt="Before" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
-                  <span className="absolute bottom-0 left-0 w-full bg-black/50 text-white text-[8px] py-0.5">ANTES</span>
+                  <span className="absolute bottom-0 left-0 w-full bg-black/50 text-white text-[8px] py-0.5">BEFORE</span>
                 </div>
                 <div className="relative w-1/2 aspect-square rounded-lg overflow-hidden border-2 border-primary/20">
                   <img src="https://i.imgur.com/oIADq28.png" alt="After" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  <span className="absolute bottom-0 left-0 w-full bg-primary/70 text-white text-[8px] py-0.5">DESPUÉS</span>
+                  <span className="absolute bottom-0 left-0 w-full bg-primary/70 text-white text-[8px] py-0.5">AFTER</span>
                 </div>
               </div>
-              <p className="text-[11px] font-bold text-text-main">"María perdió 8kg en 21 días"</p>
+              <p className="text-[11px] font-bold text-text-main">"Maria lost 17 lbs in 21 days"</p>
             </div>
 
             <div className="bg-white p-3 rounded-[16px] shadow-sm border border-gray-100">
               <div className="flex gap-2 mb-2">
                 <div className="relative w-1/2 aspect-square rounded-lg overflow-hidden">
                   <img src="https://i.imgur.com/2pJv2tU.jpeg" alt="Before" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
-                  <span className="absolute bottom-0 left-0 w-full bg-black/50 text-white text-[8px] py-0.5">ANTES</span>
+                  <span className="absolute bottom-0 left-0 w-full bg-black/50 text-white text-[8px] py-0.5">BEFORE</span>
                 </div>
                 <div className="relative w-1/2 aspect-square rounded-lg overflow-hidden border-2 border-primary/20">
                   <img src="https://i.imgur.com/fjX18y8.png" alt="After" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  <span className="absolute bottom-0 left-0 w-full bg-primary/70 text-white text-[8px] py-0.5">DESPUÉS</span>
+                  <span className="absolute bottom-0 left-0 w-full bg-primary/70 text-white text-[8px] py-0.5">AFTER</span>
                 </div>
               </div>
-              <p className="text-[11px] font-bold text-text-main">"Laura bajó 2 tallas de pantalón"</p>
+              <p className="text-[11px] font-bold text-text-main">"Laura dropped 2 pant sizes"</p>
             </div>
           </div>
 
@@ -96,7 +96,7 @@ export default function SocialProofFemale({ onNext, onBack }: SocialProofFemaleP
             onClick={onNext}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Continuar mi evaluación
+            Continue my evaluation
           </button>
         </motion.div>
       </main>

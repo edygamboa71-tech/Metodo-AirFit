@@ -63,11 +63,11 @@ export default function TargetWeightStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-2 text-text-main">
-            ¿Cuál es tu peso objetivo para los próximos 21 días?
+            What is your target weight for the next 21 days?
           </h1>
           
           <p className="text-[#1B5E20] font-bold text-center text-sm mb-8">
-            Meta realista: 4-8kg de pérdida inicial
+            Realistic goal: 4-8kg initial loss
           </p>
 
           {/* Unit Toggle */}
@@ -115,7 +115,7 @@ export default function TargetWeightStep({
                 : 'bg-primary/40 text-white/70 cursor-not-allowed'
             }`}
           >
-            Siguiente
+            Continue
           </button>
         </motion.div>
       </main>

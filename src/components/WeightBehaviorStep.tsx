@@ -9,10 +9,10 @@ interface WeightBehaviorStepProps {
 }
 
 const OPTIONS = [
-  { id: 'up-slow-down', label: 'Subo fácil pero bajo muy lento' },
-  { id: 'maintain-hard-down', label: 'Mantengo pero me cuesta bajar' },
-  { id: 'yo-yo', label: 'Subo y bajo constantemente (efecto rebote)' },
-  { id: 'no-problems', label: 'Nunca he tenido problemas de peso' },
+  { id: 'up-slow-down', label: 'I gain easily but lose very slowly' },
+  { id: 'maintain-hard-down', label: 'I maintain but struggle to lose' },
+  { id: 'yo-yo', label: 'I constantly go up and down (yo-yo effect)' },
+  { id: 'no-problems', label: 'I\'ve never had weight problems' },
 ];
 
 export default function WeightBehaviorStep({ 
@@ -57,7 +57,7 @@ export default function WeightBehaviorStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            ¿Cómo suele comportarse tu peso?
+            How does your weight usually behave?
           </h1>
 
           <div className="flex flex-col gap-3 w-full">

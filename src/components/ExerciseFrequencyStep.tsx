@@ -16,10 +16,10 @@ interface ExerciseFrequencyStepProps {
 }
 
 const OPTIONS: FrequencyOption[] = [
-  { id: 'never', label: 'Nunca o casi nunca', bars: 1 },
-  { id: '1-2', label: '1-2 veces por semana', bars: 2 },
-  { id: '3-4', label: '3-4 veces por semana', bars: 3 },
-  { id: '5+', label: '5+ veces por semana', bars: 4 },
+  { id: 'never', label: 'Never or almost never', bars: 1 },
+  { id: '1-2', label: '1-2 times per week', bars: 2 },
+  { id: '3-4', label: '3-4 times per week', bars: 3 },
+  { id: '5+', label: '5+ times per week', bars: 4 },
 ];
 
 export default function ExerciseFrequencyStep({ 
@@ -82,10 +82,10 @@ export default function ExerciseFrequencyStep({
           className="w-full"
         >
           <p className="text-center text-text-secondary text-sm font-bold mb-2 uppercase tracking-wider">
-            Paso {currentStepText}
+            Step {currentStepText}
           </p>
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            ¿Con qué frecuencia haces ejercicio actualmente?
+            How often do you currently exercise?
           </h1>
 
           <div className="flex flex-col gap-4 w-full mb-10">
@@ -127,7 +127,7 @@ export default function ExerciseFrequencyStep({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

@@ -17,23 +17,23 @@ export default function MealsStep({
   const options = [
     { 
       id: '1-meal', 
-      title: 'Solo 1 comida al día', 
-      description: 'Principalmente la cena' 
+      title: 'Only 1 meal a day', 
+      description: 'Mainly dinner' 
     },
     { 
       id: '2-meals', 
-      title: '2 comidas al día', 
-      description: 'Almuerzo + cena' 
+      title: '2 meals a day', 
+      description: 'Lunch + dinner' 
     },
     { 
       id: '3-meals', 
-      title: '3 comidas completas', 
-      description: 'Desayuno, almuerzo y cena' 
+      title: '3 full meals', 
+      description: 'Breakfast, lunch and dinner' 
     },
     { 
       id: 'all-meals', 
-      title: 'Todas mis comidas + snacks', 
-      description: 'Plan de alimentación completo' 
+      title: 'All my meals + snacks', 
+      description: 'Full nutrition plan' 
     }
   ];
 
@@ -72,11 +72,11 @@ export default function MealsStep({
           className="w-full"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-2 text-text-main">
-            ¿Cuántas comidas al día te gustaría tener?
+            How many meals a day would you like to have?
           </h1>
           
           <p className="text-[#D97706] font-medium text-center text-sm mb-10">
-            Puedes cambiar esto en los ajustes más tarde
+            You can change this in settings later
           </p>
 
           <div className="flex flex-col gap-4">

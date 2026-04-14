@@ -22,7 +22,7 @@ export default function PlanCreatedStep({ onNext }: PlanCreatedStepProps) {
           {/* Central Card */}
           <div className="w-full bg-[#E8E8E8] rounded-[20px] p-10 flex flex-col items-center text-center shadow-sm mb-8">
             <h1 className="text-xl font-bold text-black leading-tight mb-6">
-              Basándonos en tus preferencias,<br />hemos creado
+              Based on your preferences,<br />we have created
             </h1>
             
             <span className="text-[60px] font-black text-primary leading-none mb-2">
@@ -30,11 +30,11 @@ export default function PlanCreatedStep({ onNext }: PlanCreatedStepProps) {
             </span>
             
             <h2 className="text-lg font-bold text-black mb-6">
-              Combinaciones de comidas
+              Meal combinations
             </h2>
             
             <p className="text-sm text-gray-600 leading-relaxed max-w-[280px]">
-              que se adaptan perfectamente a tu freidora de aire y te ayudará a alcanzar tu peso ideal en solo 21 días
+              that fit perfectly with your air fryer and will help you reach your ideal weight in just 21 days
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export default function PlanCreatedStep({ onNext }: PlanCreatedStepProps) {
             onClick={onNext}
             className="w-full h-[64px] bg-primary text-white rounded-full font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

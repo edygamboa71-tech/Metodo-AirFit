@@ -77,7 +77,7 @@ export default function VisualSelectionStepFemale({
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                      <span className="text-xs font-medium">Agregar Foto</span>
+                      <span className="text-xs font-medium">Add Photo</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

@@ -63,7 +63,7 @@ export default function WeightStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-8 text-text-main">
-            ¿Cuál es tu peso actual?
+            What is your current weight?
           </h1>
 
           {/* Unit Toggle */}
@@ -103,7 +103,7 @@ export default function WeightStep({
 
           {/* Educational Text */}
           <p className="text-gray-500 text-center text-sm max-w-[280px] mb-12 leading-relaxed">
-            Esta información nos ayuda a personalizar tu déficit calórico
+            This information helps us personalize your calorie deficit
           </p>
 
           {/* CTA Button */}
@@ -116,7 +116,7 @@ export default function WeightStep({
                 : 'bg-primary/40 text-white/70 cursor-not-allowed'
             }`}
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

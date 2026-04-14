@@ -48,12 +48,12 @@ export default function SummaryStep({
 
   // Metabolism based on exercise frequency
   const metabolismMap: Record<string, string> = {
-    'none': 'Lento (Sedentario)',
-    '1-2': 'Moderado',
-    '3-5': 'Activo',
-    '6+': 'Muy Activo'
+    'none': 'Slow (Sedentary)',
+    '1-2': 'Moderate',
+    '3-5': 'Active',
+    '6+': 'Very Active'
   };
-  const metabolism = metabolismMap[userData.exerciseFrequency || 'none'] || 'Moderado';
+  const metabolism = metabolismMap[userData.exerciseFrequency || 'none'] || 'Moderate';
 
   // Weight goal calculation
   const weightDiff = userData.targetWeight - userData.weight;
@@ -61,7 +61,7 @@ export default function SummaryStep({
   const isWeightGain = weightDiff > 0;
   const absWeightDiff = Math.abs(weightDiff);
   
-  const goalLabel = isWeightLoss ? "Bajar de peso" : isWeightGain ? "Subir de peso" : "Mantener peso";
+  const goalLabel = isWeightLoss ? "Lose weight" : isWeightGain ? "Gain weight" : "Maintain weight";
 
   // Specific Calculations
   // 1. Water Intake (approx 35ml per kg)
@@ -94,37 +94,37 @@ export default function SummaryStep({
   let imcMessage = "";
 
   if (imcValue < 18.5) {
-    imcCategory = "Bajo peso";
+    imcCategory = "Underweight";
     imcColor = "text-blue-400";
     imcMessage = isWeightGain 
-      ? `Tu IMC indica bajo peso. Tu meta de subir ${absWeightDiff}kg es ideal para alcanzar un rango saludable y ganar masa muscular en solo ${daysToGoal} días.`
-      : "Tu peso está por debajo de lo recomendado. Nos enfocaremos en ganar masa muscular de forma saludable.";
+      ? `Your BMI indicates underweight. Your goal to gain ${absWeightDiff}kg is ideal for reaching a healthy range and gaining muscle mass in just ${daysToGoal} days.`
+      : "Your weight is below the recommended range. We will focus on gaining muscle mass healthily.";
   } else if (imcValue >= 18.5 && imcValue < 25) {
     imcCategory = "Normal";
     imcColor = "text-green-500";
     imcMessage = isWeightLoss
-      ? `Estás en un rango saludable, pero tu meta de bajar ${absWeightDiff}kg te ayudará a lograr esa definición atlética que buscas en solo ${daysToGoal} días.`
+      ? `You are in a healthy range, but your goal to lose ${absWeightDiff}kg will help you achieve the athletic definition you seek in just ${daysToGoal} days.`
       : isWeightGain
-        ? `Rango saludable detectado. Tu meta de subir ${absWeightDiff}kg se enfocará en hipertrofia muscular limpia durante los próximos ${daysToGoal} días.`
-        : "¡Excelente! Estás en un rango saludable. Tu plan se enfocará en tonificación y definición.";
+        ? `Healthy range detected. Your goal to gain ${absWeightDiff}kg will focus on clean muscle hypertrophy over the next ${daysToGoal} days.`
+        : "Excellent! You are in a healthy range. Your plan will focus on toning and definition.";
   } else if (imcValue >= 25 && imcValue < 30) {
-    imcCategory = "Sobrepeso";
+    imcCategory = "Overweight";
     imcColor = "text-orange-500";
     imcMessage = isWeightLoss
-      ? `Tienes un ligero exceso de peso. Tu meta de bajar ${absWeightDiff}kg con AirFit™ reducirá tu grasa corporal en solo ${daysToGoal} días manteniendo tu energía alta.`
-      : "Tienes un ligero exceso de peso. Recomendamos un enfoque de recomposición corporal para mejorar tu salud.";
+      ? `You are slightly overweight. Your goal to lose ${absWeightDiff}kg with AirFit™ will reduce your body fat in just ${daysToGoal} days while keeping your energy high.`
+      : "You are slightly overweight. We recommend a body recomposition approach to improve your health.";
   } else if (imcValue >= 30) {
-    imcCategory = "Obesidad";
+    imcCategory = "Obesity";
     imcColor = "text-red-500";
-    imcMessage = `Tu IMC indica obesidad. No te preocupes, hemos diseñado un plan progresivo de ${daysToGoal} días para alcanzar tu meta de peso de forma segura.`;
+    imcMessage = `Your BMI indicates obesity. Don't worry, we've designed a progressive ${daysToGoal}-day plan to reach your weight goal safely.`;
   }
 
   // Personalized Prediction Message
   const predictionMessage = isWeightLoss 
-    ? `Con tu nivel de energía "${userData.energyLevel}" y tu enfoque en ${userData.bodyAreas.length > 0 ? userData.bodyAreas.join(', ') : 'tonificación general'}, predecimos que podrías alcanzar los ${predictedWeight21Days}kg en tus primeros 21 días.`
+    ? `With your energy level "${userData.energyLevel}" and your focus on ${userData.bodyAreas.length > 0 ? userData.bodyAreas.join(', ') : 'general toning'}, we predict you could reach ${predictedWeight21Days}kg in your first 21 days.`
     : isWeightGain
-      ? `Dado tu metabolismo y tu meta de ${userData.goals.length > 0 ? userData.goals[0] : 'ganar masa'}, estimamos que llegarás a ${predictedWeight21Days}kg de masa magra en solo 3 semanas.`
-      : "Mantendrás tu peso ideal optimizando tu composición corporal y energía.";
+      ? `Given your metabolism and your goal of ${userData.goals.length > 0 ? userData.goals[0] : 'gaining mass'}, we estimate you'll reach ${predictedWeight21Days}kg of lean mass in just 3 weeks.`
+      : "You will maintain your ideal weight by optimizing your body composition and energy.";
 
 
   return (
@@ -141,7 +141,7 @@ export default function SummaryStep({
         <div className="absolute inset-0 flex items-center justify-center gap-2">
           <span className="text-primary font-bold text-xl tracking-tight">AirFit™</span>
           <span className="text-gray-300 text-sm font-medium">|</span>
-          <span className="text-gray-400 text-sm font-medium">Resumen</span>
+          <span className="text-gray-400 text-sm font-medium">Summary</span>
         </div>
       </header>
 
@@ -152,20 +152,20 @@ export default function SummaryStep({
           className="w-full"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-2 text-text-main">
-            ¡Tu perfil está listo!
+            Your profile is ready!
           </h1>
           <p className="text-gray-500 text-center mb-8">
-            Basado en tus respuestas, hemos analizado tu situación actual.
+            Based on your answers, we have analyzed your current situation.
           </p>
 
           {/* Profile Card */}
           <div className="bg-white rounded-[32px] p-8 shadow-sm border border-gray-100 mb-6">
             <div className="flex items-center gap-6 mb-8">
               <div>
-                <h2 className="text-xl font-bold text-text-main mb-1">Análisis Personal</h2>
+                <h2 className="text-xl font-bold text-text-main mb-1">Personal Analysis</h2>
                 <div className="flex items-center gap-2">
                   <span className="px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-600 uppercase tracking-wider">
-                    {userData.age} años
+                    {userData.age} years old
                   </span>
                 </div>
               </div>
@@ -174,24 +174,24 @@ export default function SummaryStep({
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-gray-50 rounded-2xl p-4">
-                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Tu IMC</span>
+                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Your BMI</span>
                 <div className="flex items-baseline gap-2">
                   <span className={`text-2xl font-black ${imcColor}`}>{imcValue}</span>
                   <span className={`text-[10px] font-bold ${imcColor} uppercase`}>{imcCategory}</span>
                 </div>
               </div>
               <div className="bg-gray-50 rounded-2xl p-4">
-                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Grasa Est.</span>
+                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Est. Fat</span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-black text-text-main">{bodyFat}%</span>
                 </div>
               </div>
               <div className="bg-gray-50 rounded-2xl p-4">
-                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Metabolismo</span>
+                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Metabolism</span>
                 <span className="text-sm font-bold text-text-main block truncate">{metabolism}</span>
               </div>
               <div className="bg-gray-50 rounded-2xl p-4">
-                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Meta</span>
+                <span className="text-gray-400 text-[10px] font-bold uppercase mb-1 block tracking-wider">Goal</span>
                 <div className="flex flex-col">
                   <span className="text-sm font-black text-primary truncate block w-full">
                     {goalLabel}
@@ -219,7 +219,7 @@ export default function SummaryStep({
             </div>
             <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
               <Zap size={20} />
-              Predicción AirFit™
+              AirFit™ Prediction
             </h3>
             <p className="text-sm opacity-90 leading-relaxed mb-4">
               {predictionMessage}
@@ -228,23 +228,23 @@ export default function SummaryStep({
               <div className="flex-grow h-2 bg-white/20 rounded-full overflow-hidden">
                 <div className="h-full bg-white w-3/4 rounded-full" />
               </div>
-              <span className="text-xs font-bold">75% Probabilidad</span>
+              <span className="text-xs font-bold">75% Probability</span>
             </div>
           </div>
 
           {/* New Specific Data Section */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center text-center">
-              <span className="text-[10px] font-bold text-gray-400 uppercase mb-2">Agua Diaria</span>
+              <span className="text-[10px] font-bold text-gray-400 uppercase mb-2">Daily Water</span>
               <span className="text-lg font-black text-blue-500">{waterIntake}L</span>
             </div>
             <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center text-center">
-              <span className="text-[10px] font-bold text-gray-400 uppercase mb-2">Calorías</span>
+              <span className="text-[10px] font-bold text-gray-400 uppercase mb-2">Calories</span>
               <span className="text-lg font-black text-orange-500">{targetCalories}</span>
             </div>
             <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col items-center text-center">
-              <span className="text-[10px] font-bold text-gray-400 uppercase mb-2">Tiempo Est.</span>
-              <span className="text-lg font-black text-primary">{daysToGoal} días</span>
+              <span className="text-[10px] font-bold text-gray-400 uppercase mb-2">Est. Time</span>
+              <span className="text-lg font-black text-primary">{daysToGoal} days</span>
             </div>
           </div>
 
@@ -253,7 +253,7 @@ export default function SummaryStep({
             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100">
               <h3 className="font-bold text-text-main mb-4 flex items-center gap-2">
                 <Target size={20} className="text-primary" />
-                Tus Objetivos
+                Your Goals
               </h3>
               <div className="flex flex-wrap gap-2">
                 {userData.goals.length > 0 ? (
@@ -263,7 +263,7 @@ export default function SummaryStep({
                     </span>
                   ))
                 ) : (
-                  <span className="text-sm text-gray-400 italic">No seleccionados</span>
+                  <span className="text-sm text-gray-400 italic">Not selected</span>
                 )}
               </div>
             </div>
@@ -271,21 +271,21 @@ export default function SummaryStep({
             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100">
               <h3 className="font-bold text-text-main mb-4 flex items-center gap-2">
                 <Zap size={20} className="text-primary" />
-                Tu Situación Actual
+                Your Current Situation
               </h3>
               <ul className="space-y-3">
                 <li className="flex justify-between text-sm">
-                  <span className="text-gray-500">Nivel de energía:</span>
-                  <span className="font-bold text-text-main capitalize">{userData.energyLevel || 'No definido'}</span>
+                  <span className="text-gray-500">Energy level:</span>
+                  <span className="font-bold text-text-main capitalize">{userData.energyLevel || 'Not defined'}</span>
                 </li>
                 <li className="flex justify-between text-sm">
-                  <span className="text-gray-500">Actividad física:</span>
+                  <span className="text-gray-500">Physical activity:</span>
                   <span className="font-bold text-text-main">{metabolism}</span>
                 </li>
                 <li className="flex justify-between text-sm">
-                  <span className="text-gray-500">Zonas a trabajar:</span>
+                  <span className="text-gray-500">Areas to work on:</span>
                   <span className="font-bold text-text-main text-right ml-4">
-                    {userData.bodyAreas.length > 0 ? userData.bodyAreas.join(', ') : 'Todo el cuerpo'}
+                    {userData.bodyAreas.length > 0 ? userData.bodyAreas.join(', ') : 'Whole body'}
                   </span>
                 </li>
               </ul>
@@ -296,7 +296,7 @@ export default function SummaryStep({
             onClick={onNext}
             className="w-full bg-primary text-white h-16 rounded-full font-bold text-lg shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group"
           >
-            Ver mi predicción personalizada
+            See my personalized prediction
             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>

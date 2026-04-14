@@ -104,7 +104,7 @@ export default function MultiSelectStep({
                 : 'bg-primary-light text-white cursor-not-allowed opacity-70'
             }`}
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

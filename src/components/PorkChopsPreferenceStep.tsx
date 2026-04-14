@@ -52,22 +52,22 @@ export default function PorkChopsPreferenceStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[32px] font-bold text-center leading-tight mb-2 text-text-main">
-            Lo amo o lo odio
+            Love it or hate it
           </h1>
           
           <p className="text-gray-400 text-center text-sm mb-8">
-            Si no lo sabes, elige Neutral
+            If you don't know, choose Neutral
           </p>
 
           <h2 className="text-[20px] font-bold text-center mb-8 text-text-main">
-            Chuletas Cerdo
+            Pork Chops
           </h2>
 
           {/* Food Image - Circular */}
           <div className="w-full aspect-square max-w-[300px] rounded-full overflow-hidden mb-12 shadow-2xl ring-4 ring-white">
             <img 
               src={porkChopsImage} 
-              alt="Chuletas Cerdo" 
+              alt="Pork Chops" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
@@ -79,7 +79,7 @@ export default function PorkChopsPreferenceStep({
               onClick={() => onSelect('hate')}
               className="flex-1 h-[56px] bg-black text-white rounded-full font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Lo odio
+              Hate it
             </button>
             <button
               onClick={() => onSelect('neutral')}
@@ -91,7 +91,7 @@ export default function PorkChopsPreferenceStep({
               onClick={() => onSelect('love')}
               className="flex-1 h-[56px] bg-primary text-white rounded-full font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
             >
-              Lo amo
+              Love it
             </button>
           </div>
         </motion.div>

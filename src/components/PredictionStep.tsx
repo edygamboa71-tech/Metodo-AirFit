@@ -63,10 +63,10 @@ export default function PredictionStep({
   const predictedWeight21Days = Number((startWeight + (weeklyChange * 3)).toFixed(1));
 
   const data = [
-    { day: 'Hoy', weight: startWeight },
-    { day: 'Día 7', weight: Number((startWeight + weeklyChange).toFixed(1)) },
-    { day: 'Día 14', weight: Number((startWeight + weeklyChange * 2).toFixed(1)) },
-    { day: 'Día 21', weight: predictedWeight21Days },
+    { day: 'Today', weight: startWeight },
+    { day: 'Day 7', weight: Number((startWeight + weeklyChange).toFixed(1)) },
+    { day: 'Day 14', weight: Number((startWeight + weeklyChange * 2).toFixed(1)) },
+    { day: 'Day 21', weight: predictedWeight21Days },
   ];
 
   // Calculate Y axis domain
@@ -75,10 +75,10 @@ export default function PredictionStep({
 
   // Weight to change
   const weightToChange = Math.abs(userData.weight - userData.targetWeight);
-  const weightToChangeLabel = isWeightLoss ? 'reducir' : isWeightGain ? 'ganar' : 'mantener';
+  const weightToChangeLabel = isWeightLoss ? 'reduce' : isWeightGain ? 'gain' : 'maintain';
 
   // Primary goal
-  const primaryGoal = userData.goals[0] || 'Mejorar tu salud';
+  const primaryGoal = userData.goals[0] || 'Improve your health';
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col items-center">
@@ -116,7 +116,7 @@ export default function PredictionStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[24px] font-bold text-center leading-tight mb-8 text-text-main">
-            ¡Predecimos que pesarás <span className="text-primary">{predictedWeight21Days} kg</span> en solo <span className="text-primary">21 días</span>!
+            We predict you will weigh <span className="text-primary">{predictedWeight21Days} kg</span> in just <span className="text-primary">21 days</span>!
           </h1>
 
           {/* Graph Container */}
@@ -159,7 +159,7 @@ export default function PredictionStep({
                   animationDuration={2000}
                 />
                 <ReferenceDot 
-                  x="Día 21" 
+                  x="Day 21" 
                   y={predictedWeight21Days} 
                   r={6} 
                   fill="#22C55E" 
@@ -171,7 +171,7 @@ export default function PredictionStep({
 
             {/* Tooltip Meta */}
             <div className="absolute right-4 bottom-[75px] bg-[#22C55E] text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-lg flex items-center gap-1 animate-bounce">
-              Meta {predictedWeight21Days} kg
+              Goal {predictedWeight21Days} kg
               <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#22C55E] rotate-45"></div>
             </div>
           </div>
@@ -180,23 +180,23 @@ export default function PredictionStep({
           <div className="w-full bg-white rounded-[24px] p-6 mb-6 shadow-sm border border-gray-100">
             <h3 className="font-bold text-text-main mb-4 flex items-center gap-2">
               <span className="text-xl">🚀</span>
-              Tu Plan de 21 Días
+              Your 21-Day Plan
             </h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Objetivo Principal:</span>
+                <span className="text-sm text-gray-500">Primary Goal:</span>
                 <span className="text-sm font-bold text-text-main">{primaryGoal}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Peso a {weightToChangeLabel}:</span>
+                <span className="text-sm text-gray-500">Weight to {weightToChangeLabel}:</span>
                 <span className="text-sm font-bold text-primary">
                   {isWeightLoss ? '-' : isWeightGain ? '+' : ''}{weightToChange} kg
                 </span>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Enfoque:</span>
+                <span className="text-sm text-gray-500">Focus:</span>
                 <span className="text-sm font-bold text-text-main">
-                  {userData.bodyAreas.length > 0 ? userData.bodyAreas[0] : 'Cuerpo completo'}
+                  {userData.bodyAreas.length > 0 ? userData.bodyAreas[0] : 'Full body'}
                 </span>
               </div>
             </div>
@@ -206,9 +206,9 @@ export default function PredictionStep({
           <div className="w-full bg-[#E8F5E9] rounded-[20px] p-5 mb-10 flex gap-4 items-start border border-[#C8E6C9]">
             <span className="text-2xl">🎯</span>
             <div className="flex flex-col">
-              <h3 className="font-bold text-[#1B5E20] text-base mb-1">¡Buenas noticias!</h3>
+              <h3 className="font-bold text-[#1B5E20] text-base mb-1">Good news!</h3>
               <p className="text-[#2E7D32] text-sm leading-relaxed">
-                Basándonos en tu nivel de motivación <span className="font-bold">"{userData.motivation || 'alto'}"</span> y tu perfil metabólico, esta meta de <span className="font-bold">{predictedWeight21Days} kg</span> es totalmente alcanzable en 21 días con AirFit™.
+                Based on your motivation level <span className="font-bold">"{userData.motivation || 'high'}"</span> and your metabolic profile, this goal of <span className="font-bold">{predictedWeight21Days} kg</span> is fully achievable in 21 days with AirFit™.
               </p>
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function PredictionStep({
             onClick={onNext}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

@@ -4,9 +4,10 @@ import { ArrowLeft, Star, CheckCircle2 } from 'lucide-react';
 interface TestimonialStepFemaleProps {
   onNext: () => void;
   onBack: () => void;
+  t: any;
 }
 
-export default function TestimonialStepFemale({ onNext, onBack }: TestimonialStepFemaleProps) {
+export default function TestimonialStepFemale({ onNext, onBack, t }: TestimonialStepFemaleProps) {
   return (
     <div className="min-h-screen bg-[#F9F9F9] flex flex-col items-center">
       {/* Header */}
@@ -31,7 +32,7 @@ export default function TestimonialStepFemale({ onNext, onBack }: TestimonialSte
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-8 text-black">
-            Resultados visibles en solo 21 días
+            {t.testimonial.title}
           </h1>
 
           {/* Before/After Photos */}
@@ -39,30 +40,30 @@ export default function TestimonialStepFemale({ onNext, onBack }: TestimonialSte
             <div className="flex-1 relative">
               <img 
                 src="https://i.imgur.com/zxsj4UY.jpeg" 
-                alt="Antes" 
+                alt={t.testimonial.before} 
                 className="w-full aspect-[4/5] object-cover rounded-[20px] shadow-sm"
                 referrerPolicy="no-referrer"
               />
               <span className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] uppercase font-bold px-2 py-1 rounded-full">
-                Antes
+                {t.testimonial.before}
               </span>
             </div>
             <div className="flex-1 relative">
               <img 
                 src="https://i.imgur.com/oIADq28.png" 
-                alt="Después" 
+                alt={t.testimonial.after} 
                 className="w-full aspect-[4/5] object-cover rounded-[20px] shadow-sm border-2 border-green-500"
                 referrerPolicy="no-referrer"
               />
               <span className="absolute bottom-3 left-3 bg-green-500 text-white text-[10px] uppercase font-bold px-2 py-1 rounded-full">
-                Después
+                {t.testimonial.after}
               </span>
             </div>
           </div>
 
           <div className="text-green-600 font-bold text-xl mb-8 flex items-center gap-2">
             <CheckCircle2 size={24} />
-            ¡Ya bajé 21 kg!
+            {t.testimonial.femaleResult}
           </div>
 
           {/* Testimonial Card */}
@@ -74,11 +75,11 @@ export default function TestimonialStepFemale({ onNext, onBack }: TestimonialSte
             </div>
             
             <p className="text-text-main text-lg leading-relaxed mb-6 italic">
-              "No podía creer lo fácil que era... perdí 6kg en 21 días cocinando solo con mi freidora de aire. ¡Incluso mi esposo notó la diferencia! Perder peso se así siente de simple."
+              {t.testimonial.femaleQuote}
             </p>
 
             <div className="flex items-center gap-2">
-              <span className="font-bold text-text-main text-lg">María G., 34 años</span>
+              <span className="font-bold text-text-main text-lg">{t.testimonial.femaleName}</span>
               <CheckCircle2 size={18} className="text-green-500 fill-green-500/10" />
             </div>
           </div>
@@ -87,7 +88,7 @@ export default function TestimonialStepFemale({ onNext, onBack }: TestimonialSte
             onClick={onNext}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Continuar mi evaluación
+            {t.testimonial.cta}
           </button>
         </motion.div>
       </main>

@@ -62,7 +62,7 @@ export default function AgeStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-12 text-text-main">
-            ¿Qué edad tienes?
+            How old are you?
           </h1>
 
           {/* Age Input */}
@@ -76,7 +76,7 @@ export default function AgeStep({
                 className="bg-transparent text-[40px] font-bold text-center w-full focus:outline-none text-text-main placeholder:text-gray-300"
                 autoFocus
               />
-              <span className="text-2xl font-bold text-gray-400">años</span>
+              <span className="text-2xl font-bold text-gray-400">years</span>
             </div>
           </div>
 
@@ -84,9 +84,9 @@ export default function AgeStep({
           <div className="w-full bg-white rounded-[20px] p-6 flex gap-4 items-start mb-10 border border-gray-100 shadow-sm">
             <span className="text-2xl">👤</span>
             <div className="flex flex-col">
-              <h3 className="font-bold text-text-main text-base mb-1">Necesitamos tu edad para crear tu plan personal</h3>
+              <h3 className="font-bold text-text-main text-base mb-1">We need your age to create your personal plan</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Calculamos tu metabolismo basal. Las personas mayores de 30 años suelen necesitar un enfoque diferente para acelerar la pérdida de peso.
+                We calculate your basal metabolism. People over 30 often need a different approach to accelerate weight loss.
               </p>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function AgeStep({
                 : 'bg-primary/40 text-white/70 cursor-not-allowed'
             }`}
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

@@ -10,13 +10,13 @@ interface MethodsStepProps {
 }
 
 const OPTIONS = [
-  { id: 'keto', label: 'Dieta cetogénica/keto' },
-  { id: 'fasting', label: 'Ayuno intermitente' },
-  { id: 'apps', label: 'Contar calorías con apps' },
-  { id: 'restrictive', label: 'Dietas restrictivas (sin harinas, sin azúcar)' },
-  { id: 'supplements', label: 'Batidos/suplementos para bajar peso' },
-  { id: 'gym', label: 'Gimnasio/entrenador personal' },
-  { id: 'none', label: 'Ninguna de las anteriores' },
+  { id: 'keto', label: 'Ketogenic/Keto diet' },
+  { id: 'fasting', label: 'Intermittent fasting' },
+  { id: 'apps', label: 'Counting calories with apps' },
+  { id: 'restrictive', label: 'Restrictive diets (no flour, no sugar)' },
+  { id: 'supplements', label: 'Shakes/supplements for weight loss' },
+  { id: 'gym', label: 'Gym/personal trainer' },
+  { id: 'none', label: 'None of the above' },
 ];
 
 export default function MethodsStep({ 
@@ -79,10 +79,10 @@ export default function MethodsStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-2 text-text-main">
-            ¿Has probado alguno de estos métodos en los últimos 2 años?
+            Have you tried any of these methods in the last 2 years?
           </h1>
           <p className="text-center text-gray-500 text-sm mb-8">
-            Selecciona todas las que apliquen:
+            Select all that apply:
           </p>
 
           <div className="flex flex-col gap-2 w-full mb-10">
@@ -121,7 +121,7 @@ export default function MethodsStep({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Continuar
+            Continue
           </button>
         </motion.div>
       </main>

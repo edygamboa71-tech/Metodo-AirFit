@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { translations, Language } from './translations';
 import Landing from './components/Landing';
 import SocialProof from './components/SocialProof';
 import QuizStep from './components/QuizStep';
@@ -39,12 +41,39 @@ import ChickenPreferenceStep from './components/ChickenPreferenceStep';
 import SalmonPreferenceStep from './components/SalmonPreferenceStep';
 import PorkChopsPreferenceStep from './components/PorkChopsPreferenceStep';
 import ProteinsStep from './components/ProteinsStep';
-import PlanCreatedStep from './components/PlanCreatedStep';
+import AnalysisStep from './components/AnalysisStep';
 import OfferPage from './components/OfferPage';
 
-export default function App() {
+export function QuizContainer({ initialLang }: { initialLang: Language }) {
+  const [lang, setLang] = useState<Language>(initialLang);
   const [step, setStep] = useState(0);
   const [gender, setGender] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const pathLang = location.pathname.split('/')[1] as Language;
+    if (pathLang === 'es' || pathLang === 'en') {
+      setLang(pathLang);
+    }
+  }, [location]);
+
+  const handleSetLang = (newLang: Language) => {
+    setLang(newLang);
+    navigate(`/${newLang}`, { replace: true });
+  };
+
+  const t = translations[lang];
+
+  useEffect(() => {
+    // Pixel Injection Logic
+    const pixelId = t.offer.pixelId;
+    if (pixelId && pixelId !== 'PIXEL_ID_EN' && pixelId !== 'PIXEL_ID_ES') {
+      console.log(`Injecting Pixel: ${pixelId} for language: ${lang}`);
+      // ...
+    }
+  }, [lang, t.offer.pixelId]);
+
   const [userData, setUserData] = useState({
     gender: null as string | null,
     goals: [] as string[],
@@ -215,17 +244,17 @@ export default function App() {
 
   // Gender-based options for Aspirational Body
   const femaleAspirationalOptions = [
-    { id: 'toned', label: 'Cuerpo tonificado atlético', imageUrl: 'https://i.imgur.com/jkMFKNr.jpeg' },
-    { id: 'fit', label: 'Cuerpo fit definido', imageUrl: 'https://i.imgur.com/jo8xO91.jpeg' },
-    { id: 'slim', label: 'Cuerpo delgado saludable', imageUrl: 'https://i.imgur.com/dAOVDF0.jpeg' },
-    { id: 'strong', label: 'Cuerpo fuerte musculoso', imageUrl: 'https://i.imgur.com/EI77SD8.jpeg' }
+    { id: 'toned', label: 'Athletic toned body', imageUrl: 'https://i.imgur.com/jkMFKNr.jpeg' },
+    { id: 'fit', label: 'Defined fit body', imageUrl: 'https://i.imgur.com/jo8xO91.jpeg' },
+    { id: 'slim', label: 'Healthy slim body', imageUrl: 'https://i.imgur.com/dAOVDF0.jpeg' },
+    { id: 'strong', label: 'Strong muscular body', imageUrl: 'https://i.imgur.com/EI77SD8.jpeg' }
   ];
 
   const maleAspirationalOptions = [
-    { id: 'toned', label: 'Cuerpo tonificado atlético', imageUrl: 'https://i.imgur.com/CJ0A2HB.jpeg' },
-    { id: 'fit', label: 'Cuerpo fit definido', imageUrl: 'https://i.imgur.com/dwMaTzI.jpeg' },
-    { id: 'slim', label: 'Cuerpo delgado saludable', imageUrl: 'https://i.imgur.com/NYEBqU7.jpeg' },
-    { id: 'strong', label: 'Cuerpo fuerte musculoso', imageUrl: 'https://i.imgur.com/U0ZWjdb.jpeg' }
+    { id: 'toned', label: 'Athletic toned body', imageUrl: 'https://i.imgur.com/CJ0A2HB.jpeg' },
+    { id: 'fit', label: 'Defined fit body', imageUrl: 'https://i.imgur.com/dwMaTzI.jpeg' },
+    { id: 'slim', label: 'Healthy slim body', imageUrl: 'https://i.imgur.com/NYEBqU7.jpeg' },
+    { id: 'strong', label: 'Strong muscular body', imageUrl: 'https://i.imgur.com/U0ZWjdb.jpeg' }
   ];
 
   return (
@@ -235,6 +264,8 @@ export default function App() {
           gender={gender} 
           setGender={setGender} 
           onNext={nextStep} 
+          lang={lang}
+          setLang={handleSetLang}
         />
       )}
       {step === 1 && (
@@ -253,13 +284,8 @@ export default function App() {
       {step === 2 && (
         gender === 'female' ? (
           <QuizStepFemale 
-            question="¿Has usado tu freidora de aire para intentar comer más saludable?"
-            options={[
-              "Sí, pero sin un plan específico",
-              "Solo para recetas básicas ocasionalmente",
-              "Nunca, solo para comida \"chatarra\" crujiente",
-              "No tengo freidora de aire"
-            ]}
+            question={t.quiz.airFryerHealthy}
+            options={t.quiz.airFryerOptions}
             currentStep={1}
             totalSteps={27}
             progress={11}
@@ -268,13 +294,8 @@ export default function App() {
           />
         ) : (
           <QuizStep 
-            question="¿Has usado tu freidora de aire para intentar comer más saludable?"
-            options={[
-              "Sí, pero sin un plan específico",
-              "Solo para recetas básicas ocasionalmente",
-              "Nunca, solo para comida \"chatarra\" crujiente",
-              "No tengo freidora de aire"
-            ]}
+            question={t.quiz.airFryerHealthy}
+            options={t.quiz.airFryerOptions}
             currentStep={1}
             totalSteps={27}
             progress={11}
@@ -301,34 +322,18 @@ export default function App() {
       {step === 4 && (
         gender === 'female' ? (
           <MultiSelectStepFemale 
-            question="¿Cuáles son tus principales objetivos?"
-            subtitle="Selecciona todos los que aplican"
-            options={[
-              "🔥 Perder peso rápidamente",
-              "💪 Tonificar mi cuerpo",
-              "⏰ Ahorrar tiempo en la cocina",
-              "😋 Comer rico sin culpa",
-              "🏠 Cocinar más en casa",
-              "🩺 Mejorar mi salud general",
-              "👗 Que mi ropa me quede mejor"
-            ]}
+            question={t.quiz.goals}
+            subtitle={t.quiz.goalsSubtitle}
+            options={t.quiz.goalsOptions}
             onNext={handleMultiSelect}
             onBack={prevStep}
             progress={19}
           />
         ) : (
           <MultiSelectStep 
-            question="¿Cuáles son tus principales objetivos?"
-            subtitle="Selecciona todos los que aplican"
-            options={[
-              "🔥 Perder peso rápidamente",
-              "💪 Tonificar mi cuerpo",
-              "⏰ Ahorrar tiempo en la cocina",
-              "😋 Comer rico sin culpa",
-              "🏠 Cocinar más en casa",
-              "🩺 Mejorar mi salud general",
-              "👗 Que mi ropa me quede mejor"
-            ]}
+            question={t.quiz.goals}
+            subtitle={t.quiz.goalsSubtitle}
+            options={t.quiz.goalsOptions}
             onNext={handleMultiSelect}
             onBack={prevStep}
             progress={19}
@@ -338,12 +343,12 @@ export default function App() {
       {step === 5 && (
         gender === 'female' ? (
           <VisualSelectionStepFemale 
-            title="Elige tu tipo de cuerpo actual"
+            title="Choose your current body type"
             options={[
-              { id: 'slim', label: 'Cuerpo delgado', imageUrl: 'https://i.imgur.com/dAOVDF0.jpeg' },
-              { id: 'normal', label: 'Cuerpo normal', imageUrl: 'https://i.imgur.com/oIADq28.png' },
-              { id: 'overweight-light', label: 'Cuerpo con ligero sobrepeso', imageUrl: 'https://i.imgur.com/wWHjZjN.jpeg' },
-              { id: 'overweight', label: 'Cuerpo con sobrepeso', imageUrl: 'https://i.imgur.com/8S9bWwu.jpeg' }
+              { id: 'slim', label: 'Slim body', imageUrl: 'https://i.imgur.com/dAOVDF0.jpeg' },
+              { id: 'normal', label: 'Normal body', imageUrl: 'https://i.imgur.com/oIADq28.png' },
+              { id: 'overweight-light', label: 'Lightly overweight body', imageUrl: 'https://i.imgur.com/wWHjZjN.jpeg' },
+              { id: 'overweight', label: 'Overweight body', imageUrl: 'https://i.imgur.com/8S9bWwu.jpeg' }
             ]}
             onSelect={handleVisualSelect}
             onBack={prevStep}
@@ -351,12 +356,12 @@ export default function App() {
           />
         ) : (
           <VisualSelectionStep 
-            title="Elige tu tipo de cuerpo actual"
+            title="Choose your current body type"
             options={[
-              { id: 'slim', label: 'Cuerpo delgado', imageUrl: 'https://i.imgur.com/NYEBqU7.jpeg' },
-              { id: 'normal', label: 'Cuerpo normal', imageUrl: 'https://i.imgur.com/DzJVS3t.jpeg' },
-              { id: 'overweight-light', label: 'Cuerpo con ligero sobrepeso', imageUrl: 'https://i.imgur.com/HGo8Dxd.jpeg' },
-              { id: 'overweight', label: 'Cuerpo con sobrepeso', imageUrl: 'https://i.imgur.com/9ogcdIW.jpeg' }
+              { id: 'slim', label: 'Slim body', imageUrl: 'https://i.imgur.com/NYEBqU7.jpeg' },
+              { id: 'normal', label: 'Normal body', imageUrl: 'https://i.imgur.com/DzJVS3t.jpeg' },
+              { id: 'overweight-light', label: 'Lightly overweight body', imageUrl: 'https://i.imgur.com/HGo8Dxd.jpeg' },
+              { id: 'overweight', label: 'Overweight body', imageUrl: 'https://i.imgur.com/9ogcdIW.jpeg' }
             ]}
             onSelect={handleVisualSelect}
             onBack={prevStep}
@@ -367,7 +372,7 @@ export default function App() {
       {step === 6 && (
         gender === 'female' ? (
           <VerticalSelectionStepFemale 
-            title="Elige el cuerpo que deseas"
+            title="Choose the body you want"
             options={femaleAspirationalOptions}
             onSelect={handleAspirationalSelect}
             onBack={prevStep}
@@ -375,7 +380,7 @@ export default function App() {
           />
         ) : (
           <VerticalSelectionStep 
-            title="Elige el cuerpo que deseas"
+            title="Choose the body you want"
             options={maleAspirationalOptions}
             onSelect={handleAspirationalSelect}
             onBack={prevStep}
@@ -405,24 +410,21 @@ export default function App() {
           <TestimonialStepFemale 
             onNext={nextStep} 
             onBack={prevStep} 
+            t={t}
           />
         ) : (
           <TestimonialStep 
             onNext={nextStep} 
             onBack={prevStep} 
+            t={t}
           />
         )
       )}
       {step === 9 && (
         <RadioSelectionStep 
-          title="¿Cuáles son tus niveles de energía durante el día?"
+          title={t.quiz.energy}
           currentStepText="10/27"
-          options={[
-            { id: 'tired', label: 'Siempre cansado/a, necesito cafeína', emoji: '😴' },
-            { id: 'low', label: 'Energía baja, especialmente por las tardes', emoji: '🚶‍♀️' },
-            { id: 'moderate', label: 'Energía moderada, algunos altibajos', emoji: '💪' },
-            { id: 'high', label: 'Energía alta y constante', emoji: '🏠' }
-          ]}
+          options={t.quiz.energyOptions}
           onNext={handleEnergySelect}
           onBack={prevStep}
           progress={37}
@@ -563,27 +565,40 @@ export default function App() {
         />
       )}
       {step === 27 && (
-        <PlanCreatedStep 
+        <AnalysisStep 
           onNext={handlePlanCreatedNext}
+          t={t}
         />
       )}
       {step === 28 && (
-        <OfferPage userData={userData} />
+        <OfferPage userData={userData} lang={lang} />
       )}
       {step > 28 && (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Próximos pasos...</h2>
+            <h2 className="text-2xl font-bold mb-4">Next steps...</h2>
             <button 
               onClick={prevStep}
               className="text-primary font-bold hover:underline"
             >
-              Volver
+              Back
             </button>
           </div>
         </div>
       )}
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/en" element={<QuizContainer initialLang="en" />} />
+        <Route path="/es" element={<QuizContainer initialLang="es" />} />
+        <Route path="/" element={<Navigate to="/en" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

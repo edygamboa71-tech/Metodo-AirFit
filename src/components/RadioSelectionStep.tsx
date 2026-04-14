@@ -61,7 +61,7 @@ export default function RadioSelectionStep({
           className="w-full"
         >
           <p className="text-center text-text-secondary text-sm font-bold mb-2 uppercase tracking-wider">
-            Paso {currentStepText}
+            Step {currentStepText}
           </p>
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
             {title}
@@ -108,7 +108,7 @@ export default function RadioSelectionStep({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Siguiente
+            Next
           </button>
         </motion.div>
       </main>

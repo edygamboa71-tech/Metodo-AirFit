@@ -9,10 +9,10 @@ interface SatisfactionStepProps {
 }
 
 const OPTIONS = [
-  { id: 'less-6-months', label: 'Hace menos de 6 meses' },
-  { id: '1-2-years', label: 'Hace 1-2 años' },
-  { id: 'more-3-years', label: 'Hace más de 3 años' },
-  { id: 'never', label: 'Nunca me he sentido completamente satisfecho/a' },
+  { id: 'less-6-months', label: 'Less than 6 months ago' },
+  { id: '1-2-years', label: '1-2 years ago' },
+  { id: 'more-3-years', label: 'More than 3 years ago' },
+  { id: 'never', label: 'I\'ve never felt completely satisfied' },
 ];
 
 export default function SatisfactionStep({ 
@@ -57,7 +57,7 @@ export default function SatisfactionStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            ¿Cuándo fue la última vez que te sentiste completamente satisfecho/a con tu peso?
+            When was the last time you felt completely satisfied with your weight?
           </h1>
 
           <div className="flex flex-col gap-3 w-full">

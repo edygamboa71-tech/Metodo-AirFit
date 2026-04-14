@@ -42,7 +42,7 @@ export default function EducationalStep({ onNext, onBack, progress }: Educationa
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-8 text-text-main">
-            ¿Sabías que puedes perder hasta <span className="text-primary">7kg en 21 días</span> usando solo tu freidora de aire?
+            Did you know you can lose up to <span className="text-primary">15 lbs in 21 days</span> using only your air fryer?
           </h1>
 
           {/* Comparison Image */}
@@ -56,7 +56,7 @@ export default function EducationalStep({ onNext, onBack, progress }: Educationa
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                  <span className="bg-black/60 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Tradicional</span>
+                  <span className="bg-black/60 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Traditional</span>
                 </div>
               </div>
               <div className="relative w-1/2 h-full border-l-2 border-white">
@@ -74,23 +74,23 @@ export default function EducationalStep({ onNext, onBack, progress }: Educationa
           </div>
 
           <div className="bg-gray-50 rounded-[24px] p-8 mb-10">
-            <h2 className="text-xl font-bold mb-6 text-text-main">Beneficios del método AirFit™:</h2>
+            <h2 className="text-xl font-bold mb-6 text-text-main">Benefits of the AirFit™ method:</h2>
             <ul className="flex flex-col gap-5">
               <li className="flex items-start gap-4">
                 <span className="text-2xl shrink-0">❤️</span>
-                <p className="text-text-main font-medium leading-snug">Reduce hasta <span className="font-bold">80% las calorías</span> vs fritura tradicional</p>
+                <p className="text-text-main font-medium leading-snug">Reduces calories by up to <span className="font-bold">80%</span> vs traditional frying</p>
               </li>
               <li className="flex items-start gap-4">
                 <span className="text-2xl shrink-0">⏰</span>
-                <p className="text-text-main font-medium leading-snug">Ahorra <span className="font-bold">5+ horas semanales</span> de cocina</p>
+                <p className="text-text-main font-medium leading-snug">Saves <span className="font-bold">5+ hours weekly</span> of cooking</p>
               </li>
               <li className="flex items-start gap-4">
                 <span className="text-2xl shrink-0">😋</span>
-                <p className="text-text-main font-medium leading-snug">Mantiene el <span className="font-bold">sabor y textura</span> crujiente</p>
+                <p className="text-text-main font-medium leading-snug">Maintains the crispy <span className="font-bold">flavor and texture</span></p>
               </li>
               <li className="flex items-start gap-4">
                 <span className="text-2xl shrink-0">🏃‍♂️</span>
-                <p className="text-text-main font-medium leading-snug">Acelera tu metabolismo con <span className="font-bold">déficit placentero</span></p>
+                <p className="text-text-main font-medium leading-snug">Speeds up your metabolism with a <span className="font-bold">pleasurable deficit</span></p>
               </li>
             </ul>
           </div>
@@ -99,7 +99,7 @@ export default function EducationalStep({ onNext, onBack, progress }: Educationa
             onClick={onNext}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Quiero mi plan personalizado
+            I want my personalized plan
           </button>
         </motion.div>
       </main>

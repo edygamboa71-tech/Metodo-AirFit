@@ -10,12 +10,12 @@ interface BodyAreaSelectionStepFemaleProps {
 }
 
 const AREAS = [
-  { id: 'brazos', label: 'Brazos', top: '15%', left: '0%' },
-  { id: 'pecho', label: 'Pecho', top: '15%', right: '0%' },
-  { id: 'espalda', label: 'Espalda', top: '40%', left: '0%' },
-  { id: 'abdomen', label: 'Abdomen', top: '40%', right: '0%' },
-  { id: 'gluteos', label: 'Glúteos', top: '65%', left: '0%' },
-  { id: 'piernas', label: 'Piernas', top: '65%', right: '0%' },
+  { id: 'brazos', label: 'Arms', top: '15%', left: '0%' },
+  { id: 'pecho', label: 'Chest', top: '15%', right: '0%' },
+  { id: 'espalda', label: 'Back', top: '40%', left: '0%' },
+  { id: 'abdomen', label: 'Abs', top: '40%', right: '0%' },
+  { id: 'gluteos', label: 'Glutes', top: '65%', left: '0%' },
+  { id: 'piernas', label: 'Legs', top: '65%', right: '0%' },
 ];
 
 export default function BodyAreaSelectionStepFemale({ 
@@ -68,10 +68,10 @@ export default function BodyAreaSelectionStepFemale({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-2 text-text-main">
-            ¿Hay alguna zona de tu cuerpo que te gustaría mejorar?
+            Is there any area of your body you would like to improve?
           </h1>
           <p className="text-text-secondary text-center mb-10 italic">
-            Selecciona todas las que aplican
+            Select all that apply
           </p>
 
           {/* Interactive Body Map */}
@@ -118,13 +118,13 @@ export default function BodyAreaSelectionStepFemale({
 
           <div className="w-full mt-auto">
             <p className="text-center text-text-secondary text-sm mb-4">
-              Si estás conforme con tu cuerpo... presiona "Continuar"
+              If you are happy with your body... press "Continue"
             </p>
             <button 
               onClick={() => onNext(selectedAreas)}
               className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Continuar
+              Continue
             </button>
           </div>
         </motion.div>

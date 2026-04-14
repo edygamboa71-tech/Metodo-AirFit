@@ -9,12 +9,12 @@ interface MotivationStepProps {
 }
 
 const OPTIONS = [
-  { id: 'confidence', label: 'Sentirme con más confianza y seguridad' },
-  { id: 'family', label: 'Tener más energía para mi familia' },
-  { id: 'health', label: 'Mejorar mi salud y prevenir enfermedades' },
-  { id: 'mirror', label: 'Verme atractivo/a en el espejo otra vez' },
-  { id: 'clothes', label: 'Que mi ropa me queda perfecta' },
-  { id: 'control', label: 'Sentir control sobre mi alimentación' },
+  { id: 'confidence', label: 'Feel more confident and secure' },
+  { id: 'family', label: 'Have more energy for my family' },
+  { id: 'health', label: 'Improve my health and prevent diseases' },
+  { id: 'mirror', label: 'Look attractive in the mirror again' },
+  { id: 'clothes', label: 'Make my clothes fit perfectly' },
+  { id: 'control', label: 'Feel in control of my eating' },
 ];
 
 export default function MotivationStep({ 
@@ -59,7 +59,7 @@ export default function MotivationStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            ¿Cuál es la razón <span className="text-primary">MÁS IMPORTANTE</span> para transformar tu cuerpo?
+            What is the <span className="text-primary">MOST IMPORTANT</span> reason to transform your body?
           </h1>
 
           <div className="flex flex-col gap-2 w-full">
