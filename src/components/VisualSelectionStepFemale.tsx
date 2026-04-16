@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface VisualOption {
   id: string;
@@ -13,6 +14,7 @@ interface VisualSelectionStepFemaleProps {
   onSelect: (id: string) => void;
   onBack: () => void;
   progress: number;
+  lang: Language;
 }
 
 export default function VisualSelectionStepFemale({ 
@@ -20,8 +22,10 @@ export default function VisualSelectionStepFemale({
   options, 
   onSelect, 
   onBack, 
-  progress 
+  progress,
+  lang
 }: VisualSelectionStepFemaleProps) {
+  const t = translations[lang];
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
       {/* Header */}
@@ -77,7 +81,7 @@ export default function VisualSelectionStepFemale({
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                      <span className="text-xs font-medium">Add Photo</span>
+                      <span className="text-xs font-medium">{t.common.addPhoto}</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

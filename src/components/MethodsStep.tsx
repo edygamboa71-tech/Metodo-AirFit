@@ -1,30 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Check } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface MethodsStepProps {
   onNext: (selected: string[]) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
-
-const OPTIONS = [
-  { id: 'keto', label: 'Ketogenic/Keto diet' },
-  { id: 'fasting', label: 'Intermittent fasting' },
-  { id: 'apps', label: 'Counting calories with apps' },
-  { id: 'restrictive', label: 'Restrictive diets (no flour, no sugar)' },
-  { id: 'supplements', label: 'Shakes/supplements for weight loss' },
-  { id: 'gym', label: 'Gym/personal trainer' },
-  { id: 'none', label: 'None of the above' },
-];
 
 export default function MethodsStep({ 
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: MethodsStepProps) {
+  const t = translations[lang];
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const toggleOption = (id: string) => {
@@ -71,7 +65,7 @@ export default function MethodsStep({
         />
       </div>
 
-      <main className="w-full max-w-[600px] px-6 py-10 flex flex-col items-center flex-grow">
+      <main className="w-full max-w-[600px] px-6 py-10 flex flex-col items-center flex-grow overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -79,14 +73,14 @@ export default function MethodsStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-2 text-text-main">
-            Have you tried any of these methods in the last 2 years?
+            {t.steps.methods.title}
           </h1>
           <p className="text-center text-gray-500 text-sm mb-8">
-            Select all that apply:
+            {t.steps.methods.subtitle}
           </p>
 
           <div className="flex flex-col gap-2 w-full mb-10">
-            {OPTIONS.map((option) => {
+            {t.steps.methods.options.map((option) => {
               const isSelected = selectedIds.includes(option.id);
               return (
                 <button
@@ -121,7 +115,7 @@ export default function MethodsStep({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

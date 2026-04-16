@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface HeightStepProps {
   onNext: (height: number) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function HeightStep({ 
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: HeightStepProps) {
+  const t = translations[lang];
   const [height, setHeight] = useState<string>('');
   const [unit, setUnit] = useState<'cm' | 'in'>('cm');
 
@@ -63,7 +67,7 @@ export default function HeightStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-8 text-text-main">
-            What is your height?
+            {t.steps.height.title}
           </h1>
 
           {/* Unit Toggle */}
@@ -105,9 +109,9 @@ export default function HeightStep({
           <div className="w-full bg-white rounded-[20px] p-6 flex gap-4 items-start mb-10 border border-gray-100 shadow-sm">
             <span className="text-2xl">📊</span>
             <div className="flex flex-col">
-              <h3 className="font-bold text-text-main text-base mb-1">Calculating your ideal body mass index</h3>
+              <h3 className="font-bold text-text-main text-base mb-1">{t.steps.height.infoTitle}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                We use your height to determine your healthy weight range and personalize your plan.
+                {t.steps.height.infoMsg}
               </p>
             </div>
           </div>
@@ -122,7 +126,7 @@ export default function HeightStep({
                 : 'bg-primary/40 text-white/70 cursor-not-allowed'
             }`}
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface TargetWeightStepProps {
   onNext: (weight: number) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function TargetWeightStep({ 
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: TargetWeightStepProps) {
+  const t = translations[lang];
   const [weight, setWeight] = useState<string>('');
   const [unit, setUnit] = useState<'kg' | 'lbs'>('kg');
 
@@ -63,11 +67,11 @@ export default function TargetWeightStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-2 text-text-main">
-            What is your target weight for the next 21 days?
+            {t.steps.targetWeight.title}
           </h1>
           
           <p className="text-[#1B5E20] font-bold text-center text-sm mb-8">
-            Realistic goal: 4-8kg initial loss
+            {t.steps.targetWeight.infoMsg}
           </p>
 
           {/* Unit Toggle */}
@@ -115,7 +119,7 @@ export default function TargetWeightStep({
                 : 'bg-primary/40 text-white/70 cursor-not-allowed'
             }`}
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

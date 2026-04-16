@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface RadioOption {
   id: string;
@@ -15,6 +16,7 @@ interface RadioSelectionStepProps {
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function RadioSelectionStep({ 
@@ -23,8 +25,10 @@ export default function RadioSelectionStep({
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: RadioSelectionStepProps) {
+  const t = translations[lang];
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
@@ -61,7 +65,7 @@ export default function RadioSelectionStep({
           className="w-full"
         >
           <p className="text-center text-text-secondary text-sm font-bold mb-2 uppercase tracking-wider">
-            Step {currentStepText}
+            {t.common.step} {currentStepText}
           </p>
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
             {title}
@@ -108,7 +112,7 @@ export default function RadioSelectionStep({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Next
+            {t.common.next}
           </button>
         </motion.div>
       </main>

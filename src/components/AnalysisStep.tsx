@@ -131,7 +131,7 @@ export default function AnalysisStep({ onNext, t }: AnalysisStepProps) {
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <span className="text-4xl font-black text-slate-800 tracking-tighter">{Math.round(progress)}%</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Analyzing</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.analysis.analyzing}</span>
                 </div>
               </div>
 

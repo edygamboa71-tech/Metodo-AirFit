@@ -1,26 +1,24 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface SatisfactionStepProps {
   onSelect: (id: string) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
-
-const OPTIONS = [
-  { id: 'less-6-months', label: 'Less than 6 months ago' },
-  { id: '1-2-years', label: '1-2 years ago' },
-  { id: 'more-3-years', label: 'More than 3 years ago' },
-  { id: 'never', label: 'I\'ve never felt completely satisfied' },
-];
 
 export default function SatisfactionStep({ 
   onSelect, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: SatisfactionStepProps) {
+  const t = translations[lang];
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
       {/* Header */}
@@ -57,11 +55,11 @@ export default function SatisfactionStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            When was the last time you felt completely satisfied with your weight?
+            {t.steps.satisfaction.title}
           </h1>
 
           <div className="flex flex-col gap-3 w-full">
-            {OPTIONS.map((option) => (
+            {t.steps.satisfaction.options.map((option) => (
               <button
                 key={option.id}
                 onClick={() => onSelect(option.id)}

@@ -1,19 +1,23 @@
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface SalmonPreferenceStepProps {
   onSelect: (preference: string) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function SalmonPreferenceStep({ 
   onSelect, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: SalmonPreferenceStepProps) {
+  const t = translations[lang];
   const salmonImage = "https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1974&auto=format&fit=crop";
 
   return (
@@ -52,15 +56,15 @@ export default function SalmonPreferenceStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[32px] font-bold text-center leading-tight mb-2 text-text-main">
-            Love it or hate it
+            {t.steps.salmonPreference.title}
           </h1>
           
           <p className="text-gray-400 text-center text-sm mb-8">
-            If you don't know, choose Neutral
+            {t.steps.salmonPreference.subtitle}
           </p>
 
           <h2 className="text-[20px] font-bold text-center mb-6 text-text-main">
-            Salmon
+            {t.steps.salmonPreference.foodName}
           </h2>
 
           {/* Food Image */}
@@ -79,19 +83,19 @@ export default function SalmonPreferenceStep({
               onClick={() => onSelect('hate')}
               className="flex-1 h-[56px] bg-black text-white rounded-full font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Hate it
+              {t.steps.salmonPreference.hateLabel}
             </button>
             <button
               onClick={() => onSelect('neutral')}
               className="flex-1 h-[56px] bg-white text-primary border-2 border-primary rounded-full font-bold text-sm hover:bg-primary/5 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Neutral
+              {t.steps.salmonPreference.neutralLabel}
             </button>
             <button
               onClick={() => onSelect('love')}
               className="flex-1 h-[56px] bg-primary text-white rounded-full font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
             >
-              Love it
+              {t.steps.salmonPreference.loveLabel}
             </button>
           </div>
         </motion.div>

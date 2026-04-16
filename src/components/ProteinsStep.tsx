@@ -1,35 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Check } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface ProteinsStepProps {
   onNext: (selected: string[]) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
-
-const foodOptions = [
-  { id: 'pollo', label: 'Chicken', emoji: '🍗' },
-  { id: 'pavo', label: 'Turkey', emoji: '🦃' },
-  { id: 'res', label: 'Beef', emoji: '🥩' },
-  { id: 'pescado', label: 'Fish', emoji: '🐟' },
-  { id: 'carne-roja', label: 'Red meat', emoji: '🍖' },
-  { id: 'vegetales', label: 'Vegetables', emoji: '🥦' },
-  { id: 'salmon', label: 'Salmon', emoji: '🍣' },
-  { id: 'queso', label: 'Cheese', emoji: '🧀' },
-  { id: 'atun', label: 'Tuna', emoji: '🥫' },
-  { id: 'huevos', label: 'Eggs', emoji: '🥚' },
-  { id: 'leche', label: 'Milk', emoji: '🥛' },
-  { id: 'yogur', label: 'Yogurt', emoji: '🍦' },
-];
 
 export default function ProteinsStep({ 
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: ProteinsStepProps) {
+  const t = translations[lang];
   const [selectedIds, setSelectedIds] = useState<string[]>(['all']);
 
   const toggleOption = (id: string) => {
@@ -78,7 +67,7 @@ export default function ProteinsStep({
 
       <main className="w-full max-w-[600px] px-6 py-8 flex flex-col flex-grow overflow-y-auto">
         <h1 className="text-[24px] font-bold text-center leading-tight mb-8 text-text-main px-4">
-          Would you like to include any of these products in your plan?
+          {t.steps.proteins.title}
         </h1>
 
         <div className="w-full space-y-1">
@@ -97,15 +86,15 @@ export default function ProteinsStep({
               }`}>
                 {selectedIds.includes('all') && <Check size={16} className="text-white stroke-[3]" />}
               </div>
-              <span className="font-bold text-text-main">I eat them all</span>
+              <span className="font-bold text-text-main">{t.steps.proteins.allLabel}</span>
             </div>
           </button>
 
-          <p className="text-gray-400 font-bold text-sm pt-4 pb-2">Others:</p>
+          <p className="text-gray-400 font-bold text-sm pt-4 pb-2">{t.steps.proteins.othersLabel}:</p>
 
           {/* Grid of options */}
           <div className="grid grid-cols-1 gap-1">
-            {foodOptions.map((option) => (
+            {t.steps.proteins.options.map((option) => (
               <button
                 key={option.id}
                 onClick={() => toggleOption(option.id)}
@@ -135,7 +124,7 @@ export default function ProteinsStep({
             onClick={() => onNext(selectedIds)}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Next
+            {t.common.continue}
           </button>
         </div>
       </main>

@@ -1,19 +1,23 @@
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface PorkChopsPreferenceStepProps {
   onSelect: (preference: string) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function PorkChopsPreferenceStep({ 
   onSelect, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: PorkChopsPreferenceStepProps) {
+  const t = translations[lang];
   const porkChopsImage = "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2069&auto=format&fit=crop";
 
   return (
@@ -52,15 +56,15 @@ export default function PorkChopsPreferenceStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[32px] font-bold text-center leading-tight mb-2 text-text-main">
-            Love it or hate it
+            {t.steps.porkPreference.title}
           </h1>
           
           <p className="text-gray-400 text-center text-sm mb-8">
-            If you don't know, choose Neutral
+            {t.steps.porkPreference.subtitle}
           </p>
 
           <h2 className="text-[20px] font-bold text-center mb-8 text-text-main">
-            Pork Chops
+            {t.steps.porkPreference.foodName}
           </h2>
 
           {/* Food Image - Circular */}
@@ -79,19 +83,19 @@ export default function PorkChopsPreferenceStep({
               onClick={() => onSelect('hate')}
               className="flex-1 h-[56px] bg-black text-white rounded-full font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Hate it
+              {t.steps.porkPreference.hateLabel}
             </button>
             <button
               onClick={() => onSelect('neutral')}
               className="flex-1 h-[56px] bg-white text-primary border-2 border-primary rounded-full font-bold text-sm hover:bg-primary/5 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Neutral
+              {t.steps.porkPreference.neutralLabel}
             </button>
             <button
               onClick={() => onSelect('love')}
               className="flex-1 h-[56px] bg-primary text-white rounded-full font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
             >
-              Love it
+              {t.steps.porkPreference.loveLabel}
             </button>
           </div>
         </motion.div>

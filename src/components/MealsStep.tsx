@@ -1,41 +1,23 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface MealsStepProps {
   onSelect: (id: string) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function MealsStep({ 
   onSelect, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: MealsStepProps) {
-  const options = [
-    { 
-      id: '1-meal', 
-      title: 'Only 1 meal a day', 
-      description: 'Mainly dinner' 
-    },
-    { 
-      id: '2-meals', 
-      title: '2 meals a day', 
-      description: 'Lunch + dinner' 
-    },
-    { 
-      id: '3-meals', 
-      title: '3 full meals', 
-      description: 'Breakfast, lunch and dinner' 
-    },
-    { 
-      id: 'all-meals', 
-      title: 'All my meals + snacks', 
-      description: 'Full nutrition plan' 
-    }
-  ];
+  const t = translations[lang];
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col items-center">
@@ -72,15 +54,15 @@ export default function MealsStep({
           className="w-full"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-2 text-text-main">
-            How many meals a day would you like to have?
+            {t.steps.meals.title}
           </h1>
           
           <p className="text-[#D97706] font-medium text-center text-sm mb-10">
-            You can change this in settings later
+            {t.steps.meals.subtitle}
           </p>
 
           <div className="flex flex-col gap-4">
-            {options.map((option, index) => (
+            {t.steps.meals.options.map((option, index) => (
               <motion.button
                 key={option.id}
                 initial={{ opacity: 0, x: -20 }}

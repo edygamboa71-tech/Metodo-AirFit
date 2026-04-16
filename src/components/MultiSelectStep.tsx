@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Check } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface MultiSelectStepProps {
   question: string;
@@ -9,6 +10,7 @@ interface MultiSelectStepProps {
   onNext: (selected: string[]) => void;
   onBack: () => void;
   progress: number;
+  lang: Language;
 }
 
 export default function MultiSelectStep({ 
@@ -17,8 +19,10 @@ export default function MultiSelectStep({
   options, 
   onNext, 
   onBack, 
-  progress 
+  progress,
+  lang
 }: MultiSelectStepProps) {
+  const t = translations[lang];
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const toggleOption = (option: string) => {
@@ -104,7 +108,7 @@ export default function MultiSelectStep({
                 : 'bg-primary-light text-white cursor-not-allowed opacity-70'
             }`}
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

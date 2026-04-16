@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface FrequencyOption {
   id: string;
@@ -13,22 +14,23 @@ interface ExerciseFrequencyStepProps {
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
-
-const OPTIONS: FrequencyOption[] = [
-  { id: 'never', label: 'Never or almost never', bars: 1 },
-  { id: '1-2', label: '1-2 times per week', bars: 2 },
-  { id: '3-4', label: '3-4 times per week', bars: 3 },
-  { id: '5+', label: '5+ times per week', bars: 4 },
-];
 
 export default function ExerciseFrequencyStep({ 
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: ExerciseFrequencyStepProps) {
+  const t = translations[lang];
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const OPTIONS: FrequencyOption[] = t.steps.exerciseFrequency.options.map((opt, i) => ({
+    ...opt,
+    bars: i + 1
+  }));
 
   const renderBars = (count: number, isSelected: boolean) => {
     return (
@@ -82,10 +84,10 @@ export default function ExerciseFrequencyStep({
           className="w-full"
         >
           <p className="text-center text-text-secondary text-sm font-bold mb-2 uppercase tracking-wider">
-            Step {currentStepText}
+            {t.common.step} {currentStepText}
           </p>
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            How often do you currently exercise?
+            {t.steps.exerciseFrequency.title}
           </h1>
 
           <div className="flex flex-col gap-4 w-full mb-10">
@@ -127,7 +129,7 @@ export default function ExerciseFrequencyStep({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

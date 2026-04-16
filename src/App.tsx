@@ -68,9 +68,32 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
   useEffect(() => {
     // Pixel Injection Logic
     const pixelId = t.offer.pixelId;
-    if (pixelId && pixelId !== 'PIXEL_ID_EN' && pixelId !== 'PIXEL_ID_ES') {
-      console.log(`Injecting Pixel: ${pixelId} for language: ${lang}`);
-      // ...
+    if (pixelId) {
+      // 1. Ensure the base Meta Pixel script is loaded
+      if (!(window as any).fbq) {
+        (function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+          if (f.fbq) return;
+          n = f.fbq = function() {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      }
+
+      // 2. Initialize and track PageView for the specific Pixel ID
+      (window as any).fbq('init', pixelId);
+      (window as any).fbq('track', 'PageView');
+      
+      console.log(`Meta Pixel ${pixelId} initialized for language: ${lang}`);
     }
   }, [lang, t.offer.pixelId]);
 
@@ -106,10 +129,6 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
 
   const handleOptionSelect = (option: string) => {
     console.log('Selected:', option);
-    if (step === 1) {
-      setGender(option);
-      updateUserData({ gender: option });
-    }
     nextStep();
   };
 
@@ -242,6 +261,13 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
     nextStep();
   };
 
+  const handleLandingNext = () => {
+    if (gender) {
+      updateUserData({ gender });
+      nextStep();
+    }
+  };
+
   // Gender-based options for Aspirational Body
   const femaleAspirationalOptions = [
     { id: 'toned', label: 'Athletic toned body', imageUrl: 'https://i.imgur.com/jkMFKNr.jpeg' },
@@ -263,7 +289,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
         <Landing 
           gender={gender} 
           setGender={setGender} 
-          onNext={nextStep} 
+          onNext={handleLandingNext} 
           lang={lang}
           setLang={handleSetLang}
         />
@@ -273,11 +299,13 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           <SocialProofFemale 
             onNext={nextStep} 
             onBack={prevStep} 
+            lang={lang}
           />
         ) : (
           <SocialProof 
             onNext={nextStep} 
             onBack={prevStep} 
+            lang={lang}
           />
         )
       )}
@@ -291,6 +319,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             progress={11}
             onSelect={handleOptionSelect}
             onBack={prevStep}
+            lang={lang}
           />
         ) : (
           <QuizStep 
@@ -301,6 +330,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             progress={11}
             onSelect={handleOptionSelect}
             onBack={prevStep}
+            lang={lang}
           />
         )
       )}
@@ -310,12 +340,14 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             onNext={nextStep} 
             onBack={prevStep} 
             progress={15}
+            lang={lang}
           />
         ) : (
           <EducationalStep 
             onNext={nextStep} 
             onBack={prevStep} 
             progress={15}
+            lang={lang}
           />
         )
       )}
@@ -328,6 +360,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             onNext={handleMultiSelect}
             onBack={prevStep}
             progress={19}
+            lang={lang}
           />
         ) : (
           <MultiSelectStep 
@@ -337,54 +370,71 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             onNext={handleMultiSelect}
             onBack={prevStep}
             progress={19}
+            lang={lang}
           />
         )
       )}
       {step === 5 && (
         gender === 'female' ? (
           <VisualSelectionStepFemale 
-            title="Choose your current body type"
-            options={[
-              { id: 'slim', label: 'Slim body', imageUrl: 'https://i.imgur.com/dAOVDF0.jpeg' },
-              { id: 'normal', label: 'Normal body', imageUrl: 'https://i.imgur.com/oIADq28.png' },
-              { id: 'overweight-light', label: 'Lightly overweight body', imageUrl: 'https://i.imgur.com/wWHjZjN.jpeg' },
-              { id: 'overweight', label: 'Overweight body', imageUrl: 'https://i.imgur.com/8S9bWwu.jpeg' }
-            ]}
+            title={t.steps.bodyType}
+            options={t.steps.bodyTypeOptions.female.map((opt, i) => ({
+              ...opt,
+              imageUrl: [
+                'https://i.imgur.com/dAOVDF0.jpeg',
+                'https://i.imgur.com/oIADq28.png',
+                'https://i.imgur.com/wWHjZjN.jpeg',
+                'https://i.imgur.com/8S9bWwu.jpeg'
+              ][i]
+            }))}
             onSelect={handleVisualSelect}
             onBack={prevStep}
             progress={22}
+            lang={lang}
           />
         ) : (
           <VisualSelectionStep 
-            title="Choose your current body type"
-            options={[
-              { id: 'slim', label: 'Slim body', imageUrl: 'https://i.imgur.com/NYEBqU7.jpeg' },
-              { id: 'normal', label: 'Normal body', imageUrl: 'https://i.imgur.com/DzJVS3t.jpeg' },
-              { id: 'overweight-light', label: 'Lightly overweight body', imageUrl: 'https://i.imgur.com/HGo8Dxd.jpeg' },
-              { id: 'overweight', label: 'Overweight body', imageUrl: 'https://i.imgur.com/9ogcdIW.jpeg' }
-            ]}
+            title={t.steps.bodyType}
+            options={t.steps.bodyTypeOptions.male.map((opt, i) => ({
+              ...opt,
+              imageUrl: [
+                'https://i.imgur.com/NYEBqU7.jpeg',
+                'https://i.imgur.com/DzJVS3t.jpeg',
+                'https://i.imgur.com/HGo8Dxd.jpeg',
+                'https://i.imgur.com/9ogcdIW.jpeg'
+              ][i]
+            }))}
             onSelect={handleVisualSelect}
             onBack={prevStep}
             progress={22}
+            lang={lang}
           />
         )
       )}
       {step === 6 && (
         gender === 'female' ? (
           <VerticalSelectionStepFemale 
-            title="Choose the body you want"
-            options={femaleAspirationalOptions}
+            title={t.steps.aspirationalBody}
+            options={t.steps.aspirationalOptions.female.map((opt, i) => ({
+              ...opt,
+              imageUrl: femaleAspirationalOptions[i].imageUrl
+            }))}
             onSelect={handleAspirationalSelect}
             onBack={prevStep}
             progress={26}
+            lang={lang}
           />
         ) : (
           <VerticalSelectionStep 
-            title="Choose the body you want"
-            options={maleAspirationalOptions}
+            title={t.steps.aspirationalBody}
+            options={t.steps.aspirationalOptions.male.map((opt, i) => ({
+              ...opt,
+              imageUrl: maleAspirationalOptions[i].imageUrl
+            }))}
             onSelect={handleAspirationalSelect}
             onBack={prevStep}
             progress={26}
+            lang={lang}
           />
         )
       )}
@@ -395,6 +445,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             onBack={prevStep}
             progress={30}
             gender={gender}
+            lang={lang}
           />
         ) : (
           <BodyAreaSelectionStep 
@@ -402,6 +453,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
             onBack={prevStep}
             progress={30}
             gender={gender as any}
+            lang={lang}
           />
         )
       )}
@@ -428,6 +480,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleEnergySelect}
           onBack={prevStep}
           progress={37}
+          lang={lang}
         />
       )}
       {step === 10 && (
@@ -436,6 +489,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleExerciseSelect}
           onBack={prevStep}
           progress={44}
+          lang={lang}
         />
       )}
       {step === 11 && (
@@ -444,6 +498,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handleWeightBehaviorSelect}
           onBack={prevStep}
           progress={48}
+          lang={lang}
         />
       )}
       {step === 12 && (
@@ -452,6 +507,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handleSatisfactionSelect}
           onBack={prevStep}
           progress={52}
+          lang={lang}
         />
       )}
       {step === 13 && (
@@ -460,12 +516,14 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleMethodsSelect}
           onBack={prevStep}
           progress={55}
+          lang={lang}
         />
       )}
       {step === 14 && (
         <ComparisonStep 
           onNext={nextStep} 
           onBack={prevStep} 
+          lang={lang}
         />
       )}
       {step === 15 && (
@@ -474,6 +532,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handleMotivationSelect}
           onBack={prevStep}
           progress={63}
+          lang={lang}
         />
       )}
       {step === 16 && (
@@ -482,6 +541,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleHeightSelect}
           onBack={prevStep}
           progress={67}
+          lang={lang}
         />
       )}
       {step === 17 && (
@@ -490,6 +550,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleWeightSelect}
           onBack={prevStep}
           progress={70}
+          lang={lang}
         />
       )}
       {step === 18 && (
@@ -498,6 +559,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleTargetWeightSelect}
           onBack={prevStep}
           progress={74}
+          lang={lang}
         />
       )}
       {step === 19 && (
@@ -506,6 +568,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleAgeSelect}
           onBack={prevStep}
           progress={78}
+          lang={lang}
         />
       )}
       {step === 20 && (
@@ -513,6 +576,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleSummaryNext}
           onBack={prevStep}
           userData={userData}
+          lang={lang}
         />
       )}
       {step === 21 && (
@@ -522,6 +586,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onBack={prevStep}
           progress={81}
           userData={userData}
+          lang={lang}
         />
       )}
       {step === 22 && (
@@ -530,6 +595,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handleMealsSelect}
           onBack={prevStep}
           progress={89}
+          lang={lang}
         />
       )}
       {step === 23 && (
@@ -538,6 +604,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handleChickenSelect}
           onBack={prevStep}
           progress={93}
+          lang={lang}
         />
       )}
       {step === 24 && (
@@ -546,6 +613,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handleSalmonSelect}
           onBack={prevStep}
           progress={93}
+          lang={lang}
         />
       )}
       {step === 25 && (
@@ -554,6 +622,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onSelect={handlePorkChopsSelect}
           onBack={prevStep}
           progress={93}
+          lang={lang}
         />
       )}
       {step === 26 && (
@@ -562,6 +631,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
           onNext={handleProteinsNext}
           onBack={prevStep}
           progress={100}
+          lang={lang}
         />
       )}
       {step === 27 && (
@@ -571,7 +641,7 @@ export function QuizContainer({ initialLang }: { initialLang: Language }) {
         />
       )}
       {step === 28 && (
-        <OfferPage userData={userData} lang={lang} />
+        <OfferPage userData={userData} lang={lang} setLang={handleSetLang} />
       )}
       {step > 28 && (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">

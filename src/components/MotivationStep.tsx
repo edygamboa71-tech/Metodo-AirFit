@@ -1,28 +1,24 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface MotivationStepProps {
   onSelect: (id: string) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
-
-const OPTIONS = [
-  { id: 'confidence', label: 'Feel more confident and secure' },
-  { id: 'family', label: 'Have more energy for my family' },
-  { id: 'health', label: 'Improve my health and prevent diseases' },
-  { id: 'mirror', label: 'Look attractive in the mirror again' },
-  { id: 'clothes', label: 'Make my clothes fit perfectly' },
-  { id: 'control', label: 'Feel in control of my eating' },
-];
 
 export default function MotivationStep({ 
   onSelect, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: MotivationStepProps) {
+  const t = translations[lang];
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
       {/* Header */}
@@ -59,11 +55,11 @@ export default function MotivationStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            What is the <span className="text-primary">MOST IMPORTANT</span> reason to transform your body?
+            {t.steps.motivation.title}
           </h1>
 
           <div className="flex flex-col gap-2 w-full">
-            {OPTIONS.map((option) => (
+            {t.steps.motivation.options.map((option) => (
               <button
                 key={option.id}
                 onClick={() => onSelect(option.id)}

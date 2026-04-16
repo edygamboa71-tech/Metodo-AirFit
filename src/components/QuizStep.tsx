@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language } from '../translations';
 
 interface QuizStepProps {
   question: string;
@@ -9,6 +10,7 @@ interface QuizStepProps {
   progress: number;
   onSelect: (option: string) => void;
   onBack: () => void;
+  lang: Language;
 }
 
 export default function QuizStep({ 
@@ -18,7 +20,8 @@ export default function QuizStep({
   totalSteps, 
   progress, 
   onSelect, 
-  onBack 
+  onBack,
+  lang
 }: QuizStepProps) {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">

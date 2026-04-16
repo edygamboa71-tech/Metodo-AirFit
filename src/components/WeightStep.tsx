@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface WeightStepProps {
   onNext: (weight: number) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
 
 export default function WeightStep({ 
   onNext, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: WeightStepProps) {
+  const t = translations[lang];
   const [weight, setWeight] = useState<string>('');
   const [unit, setUnit] = useState<'kg' | 'lbs'>('kg');
 
@@ -63,7 +67,7 @@ export default function WeightStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[28px] font-bold text-center leading-tight mb-8 text-text-main">
-            What is your current weight?
+            {t.steps.weight.title}
           </h1>
 
           {/* Unit Toggle */}
@@ -103,7 +107,7 @@ export default function WeightStep({
 
           {/* Educational Text */}
           <p className="text-gray-500 text-center text-sm max-w-[280px] mb-12 leading-relaxed">
-            This information helps us personalize your calorie deficit
+            {t.steps.weight.infoMsg}
           </p>
 
           {/* CTA Button */}
@@ -116,7 +120,7 @@ export default function WeightStep({
                 : 'bg-primary/40 text-white/70 cursor-not-allowed'
             }`}
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

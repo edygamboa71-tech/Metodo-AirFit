@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language } from '../translations';
 
 interface VerticalOption {
   id: string;
@@ -13,6 +14,7 @@ interface VerticalSelectionStepFemaleProps {
   onSelect: (id: string) => void;
   onBack: () => void;
   progress: number;
+  lang: Language;
 }
 
 export default function VerticalSelectionStepFemale({ 
@@ -20,7 +22,8 @@ export default function VerticalSelectionStepFemale({
   options, 
   onSelect, 
   onBack, 
-  progress 
+  progress,
+  lang
 }: VerticalSelectionStepFemaleProps) {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">

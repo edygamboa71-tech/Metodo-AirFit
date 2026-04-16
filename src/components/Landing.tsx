@@ -15,23 +15,30 @@ export default function Landing({ gender, setGender, onNext, lang, setLang }: La
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Language Switcher */}
-      <div className="absolute top-4 right-4 z-50 flex gap-2">
-        <button 
-          onClick={() => setLang('en')}
-          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${lang === 'en' ? 'bg-black text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-        >
-          <Globe size={14} />
-          EN
-        </button>
-        <button 
-          onClick={() => setLang('es')}
-          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${lang === 'es' ? 'bg-black text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-        >
-          <Globe size={14} />
-          ES
-        </button>
-      </div>
+      {/* Language Switcher - High Visibility Bar */}
+      <motion.div 
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="w-full bg-slate-900 py-4 px-4 flex flex-col items-center gap-3 sticky top-0 z-50 shadow-lg"
+      >
+        <p className="text-[10px] font-black text-white/50 uppercase tracking-[0.2em] animate-pulse">Select Language / Selecciona Idioma</p>
+        <div className="flex justify-center items-center gap-4 w-full max-w-sm">
+          <button 
+            onClick={() => setLang('en')}
+            className={`flex-1 h-12 rounded-2xl text-xs font-black transition-all flex items-center justify-center gap-2 border-2 ${lang === 'en' ? 'bg-white text-black border-white' : 'bg-transparent text-white border-white/20 hover:bg-white/5'}`}
+          >
+            <Globe size={16} />
+            ENGLISH
+          </button>
+          <button 
+            onClick={() => setLang('es')}
+            className={`flex-1 h-12 rounded-2xl text-xs font-black transition-all flex items-center justify-center gap-2 border-2 ${lang === 'es' ? 'bg-white text-black border-white' : 'bg-transparent text-white border-white/20 hover:bg-white/5'}`}
+          >
+            <Globe size={16} />
+            ESPAÑOL
+          </button>
+        </div>
+      </motion.div>
 
       {/* Main Content: 50/50 Split */}
       <main className="flex-grow flex flex-col md:flex-row">
@@ -106,11 +113,11 @@ export default function Landing({ gender, setGender, onNext, lang, setLang }: La
       <footer className="bg-white border-t border-gray-100 py-8 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] text-gray-400">
           <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition-colors">Terms and Conditions</a>
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Contact</a>
+            <a href="#" className="hover:text-primary transition-colors">{t.landing.terms}</a>
+            <a href="#" className="hover:text-primary transition-colors">{t.landing.privacy}</a>
+            <a href="#" className="hover:text-primary transition-colors">{t.landing.contact}</a>
           </div>
-          <p>© 2024 AirFit™. All rights reserved.</p>
+          <p>© 2024 AirFit™. {t.offer.allRightsReserved}</p>
         </div>
       </footer>
     </div>

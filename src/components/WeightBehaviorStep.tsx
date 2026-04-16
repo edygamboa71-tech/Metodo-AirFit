@@ -1,26 +1,24 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface WeightBehaviorStepProps {
   onSelect: (id: string) => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
 }
-
-const OPTIONS = [
-  { id: 'up-slow-down', label: 'I gain easily but lose very slowly' },
-  { id: 'maintain-hard-down', label: 'I maintain but struggle to lose' },
-  { id: 'yo-yo', label: 'I constantly go up and down (yo-yo effect)' },
-  { id: 'no-problems', label: 'I\'ve never had weight problems' },
-];
 
 export default function WeightBehaviorStep({ 
   onSelect, 
   onBack, 
   progress,
-  currentStepText
+  currentStepText,
+  lang
 }: WeightBehaviorStepProps) {
+  const t = translations[lang];
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
       {/* Header */}
@@ -57,11 +55,11 @@ export default function WeightBehaviorStep({
           className="w-full"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-10 text-text-main">
-            How does your weight usually behave?
+            {t.steps.weightBehavior.title}
           </h1>
 
           <div className="flex flex-col gap-3 w-full">
-            {OPTIONS.map((option) => (
+            {t.steps.weightBehavior.options.map((option) => (
               <button
                 key={option.id}
                 onClick={() => onSelect(option.id)}

@@ -6,16 +6,17 @@ import {
   XAxis, 
   YAxis, 
   CartesianGrid, 
-  Tooltip, 
   ResponsiveContainer,
   ReferenceDot
 } from 'recharts';
+import { Language, translations } from '../translations';
 
 interface PredictionStepProps {
   onNext: () => void;
   onBack: () => void;
   progress: number;
   currentStepText: string;
+  lang: Language;
   userData: {
     gender: string | null;
     goals: string[];
@@ -42,8 +43,10 @@ export default function PredictionStep({
   onBack, 
   progress,
   currentStepText,
+  lang,
   userData
 }: PredictionStepProps) {
+  const t = translations[lang];
   // Generate data based on user's current and target weight
   const startWeight = userData.weight;
   const targetWeight = userData.targetWeight;
@@ -63,10 +66,10 @@ export default function PredictionStep({
   const predictedWeight21Days = Number((startWeight + (weeklyChange * 3)).toFixed(1));
 
   const data = [
-    { day: 'Today', weight: startWeight },
-    { day: 'Day 7', weight: Number((startWeight + weeklyChange).toFixed(1)) },
-    { day: 'Day 14', weight: Number((startWeight + weeklyChange * 2).toFixed(1)) },
-    { day: 'Day 21', weight: predictedWeight21Days },
+    { day: t.steps.prediction.today, weight: startWeight },
+    { day: `${t.offer.day} 7`, weight: Number((startWeight + weeklyChange).toFixed(1)) },
+    { day: `${t.offer.day} 14`, weight: Number((startWeight + weeklyChange * 2).toFixed(1)) },
+    { day: t.steps.prediction.day21, weight: predictedWeight21Days },
   ];
 
   // Calculate Y axis domain
@@ -75,10 +78,14 @@ export default function PredictionStep({
 
   // Weight to change
   const weightToChange = Math.abs(userData.weight - userData.targetWeight);
-  const weightToChangeLabel = isWeightLoss ? 'reduce' : isWeightGain ? 'gain' : 'maintain';
+  const weightToChangeLabel = isWeightLoss 
+    ? t.steps.summary.goalsLabels.lose 
+    : isWeightGain 
+      ? t.steps.summary.goalsLabels.gain 
+      : t.steps.summary.goalsLabels.maintain;
 
   // Primary goal
-  const primaryGoal = userData.goals[0] || 'Improve your health';
+  const primaryGoal = userData.goals[0] || t.steps.summary.notSelected;
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] flex flex-col items-center">
@@ -116,7 +123,7 @@ export default function PredictionStep({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[24px] font-bold text-center leading-tight mb-8 text-text-main">
-            We predict you will weigh <span className="text-primary">{predictedWeight21Days} kg</span> in just <span className="text-primary">21 days</span>!
+            {t.steps.prediction.title.replace('{weight}', predictedWeight21Days.toString())}
           </h1>
 
           {/* Graph Container */}
@@ -159,7 +166,7 @@ export default function PredictionStep({
                   animationDuration={2000}
                 />
                 <ReferenceDot 
-                  x="Day 21" 
+                  x={t.steps.prediction.day21} 
                   y={predictedWeight21Days} 
                   r={6} 
                   fill="#22C55E" 
@@ -171,7 +178,7 @@ export default function PredictionStep({
 
             {/* Tooltip Meta */}
             <div className="absolute right-4 bottom-[75px] bg-[#22C55E] text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-lg flex items-center gap-1 animate-bounce">
-              Goal {predictedWeight21Days} kg
+              {t.steps.prediction.goal} {predictedWeight21Days} kg
               <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#22C55E] rotate-45"></div>
             </div>
           </div>
@@ -180,23 +187,25 @@ export default function PredictionStep({
           <div className="w-full bg-white rounded-[24px] p-6 mb-6 shadow-sm border border-gray-100">
             <h3 className="font-bold text-text-main mb-4 flex items-center gap-2">
               <span className="text-xl">🚀</span>
-              Your 21-Day Plan
+              {t.steps.prediction.planTitle}
             </h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Primary Goal:</span>
+                <span className="text-sm text-gray-500">{t.steps.prediction.primaryGoal}:</span>
                 <span className="text-sm font-bold text-text-main">{primaryGoal}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Weight to {weightToChangeLabel}:</span>
+                <span className="text-sm text-gray-500">{t.steps.prediction.weightTo} {weightToChangeLabel}:</span>
                 <span className="text-sm font-bold text-primary">
                   {isWeightLoss ? '-' : isWeightGain ? '+' : ''}{weightToChange} kg
                 </span>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Focus:</span>
+                <span className="text-sm text-gray-500">{t.steps.prediction.focus}:</span>
                 <span className="text-sm font-bold text-text-main">
-                  {userData.bodyAreas.length > 0 ? userData.bodyAreas[0] : 'Full body'}
+                  {userData.bodyAreas.length > 0 
+                    ? t.steps.bodyAreas.areas.find(a => a.id === userData.bodyAreas[0])?.label || userData.bodyAreas[0]
+                    : t.steps.summary.wholeBody}
                 </span>
               </div>
             </div>
@@ -206,9 +215,11 @@ export default function PredictionStep({
           <div className="w-full bg-[#E8F5E9] rounded-[20px] p-5 mb-10 flex gap-4 items-start border border-[#C8E6C9]">
             <span className="text-2xl">🎯</span>
             <div className="flex flex-col">
-              <h3 className="font-bold text-[#1B5E20] text-base mb-1">Good news!</h3>
+              <h3 className="font-bold text-[#1B5E20] text-base mb-1">{t.steps.prediction.goodNews}</h3>
               <p className="text-[#2E7D32] text-sm leading-relaxed">
-                Based on your motivation level <span className="font-bold">"{userData.motivation || 'high'}"</span> and your metabolic profile, this goal of <span className="font-bold">{predictedWeight21Days} kg</span> is fully achievable in 21 days with AirFit™.
+                {t.steps.prediction.goodNewsMsg
+                  .replace('{motivation}', t.steps.motivation.options.find(o => o.id === userData.motivation)?.label || userData.motivation || t.steps.summary.notDefined)
+                  .replace('{weight}', predictedWeight21Days.toString())}
               </p>
             </div>
           </div>
@@ -218,7 +229,7 @@ export default function PredictionStep({
             onClick={onNext}
             className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
-            Continue
+            {t.common.continue}
           </button>
         </motion.div>
       </main>

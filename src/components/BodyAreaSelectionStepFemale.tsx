@@ -1,30 +1,32 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
+import { Language, translations } from '../translations';
 
 interface BodyAreaSelectionStepFemaleProps {
   onNext: (selected: string[]) => void;
   onBack: () => void;
   progress: number;
   gender: string | null;
+  lang: Language;
 }
-
-const AREAS = [
-  { id: 'brazos', label: 'Arms', top: '15%', left: '0%' },
-  { id: 'pecho', label: 'Chest', top: '15%', right: '0%' },
-  { id: 'espalda', label: 'Back', top: '40%', left: '0%' },
-  { id: 'abdomen', label: 'Abs', top: '40%', right: '0%' },
-  { id: 'gluteos', label: 'Glutes', top: '65%', left: '0%' },
-  { id: 'piernas', label: 'Legs', top: '65%', right: '0%' },
-];
 
 export default function BodyAreaSelectionStepFemale({ 
   onNext, 
   onBack, 
   progress,
-  gender 
+  gender,
+  lang
 }: BodyAreaSelectionStepFemaleProps) {
+  const t = translations[lang];
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+
+  const AREAS = t.steps.bodyAreas.areas.map((area, i) => ({
+    ...area,
+    top: ['15%', '15%', '40%', '40%', '65%', '65%'][i],
+    left: i % 2 === 0 ? '0%' : undefined,
+    right: i % 2 !== 0 ? '0%' : undefined,
+  }));
 
   const toggleArea = (id: string) => {
     setSelectedAreas(prev => 
@@ -68,10 +70,10 @@ export default function BodyAreaSelectionStepFemale({
           className="w-full flex flex-col items-center"
         >
           <h1 className="text-[26px] font-bold text-center leading-tight mb-2 text-text-main">
-            Is there any area of your body you would like to improve?
+            {t.steps.bodyAreas.title}
           </h1>
           <p className="text-text-secondary text-center mb-10 italic">
-            Select all that apply
+            {t.steps.bodyAreas.subtitle}
           </p>
 
           {/* Interactive Body Map */}
@@ -118,13 +120,13 @@ export default function BodyAreaSelectionStepFemale({
 
           <div className="w-full mt-auto">
             <p className="text-center text-text-secondary text-sm mb-4">
-              If you are happy with your body... press "Continue"
+              {t.steps.bodyAreas.continueMsg}
             </p>
             <button 
               onClick={() => onNext(selectedAreas)}
               className="w-full h-[64px] bg-primary text-white rounded-[16px] font-bold text-lg shadow-lg shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
-              Continue
+              {t.common.continue}
             </button>
           </div>
         </motion.div>
