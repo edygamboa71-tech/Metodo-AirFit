@@ -157,7 +157,7 @@ export const translations = {
         "Generating 21-day result simulation...",
         "Analysis completed successfully!"
       ],
-      finalText: "Based on the analysis of your age, weight, and height data, we have created a real simulation and an optimized nutrition plan using exclusively your air fryer.",
+      finalText: "After analyzing all your physical data and lifestyle, we have created a nutritional plan with positive results in 21 days according to your goal, using exclusively your air fryer. The simulation of your results you will see on the next page is real if you decide to take this path.",
       continue: "CONTINUE",
       analyzing: "Analyzing"
     },
@@ -605,7 +605,7 @@ export const translations = {
         "Generando simulación de resultados a 21 días...",
         "¡Análisis completado con éxito!"
       ],
-      finalText: "Según el análisis de tus datos de edad, peso y talla, hemos creado una simulación real y un plan de nutrición optimizado usando exclusivamente tu freidora de aire.",
+      finalText: "Tras analizar todos tus datos físicos y el estilo de vida que llevas, hemos creado un plan nutricional con resultados positivos en 21 días según tu objetivo, usando exclusivamente tu freidora de aire. La simulación de tus resultados que verás en la siguiente página es real si decides tomar este camino.",
       continue: "CONTINUAR",
       analyzing: "Analizando"
     },
