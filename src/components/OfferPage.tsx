@@ -207,6 +207,13 @@ export default function OfferPage({ userData, lang, setLang }: OfferPageProps) {
           <span className="bg-primary px-2 py-0.5 rounded text-white font-mono">
             {formatTime(timeLeft)}
           </span>
+          <a 
+            href={t.offer.checkoutUrl}
+            className="flex ml-2 bg-primary hover:bg-red-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tight items-center gap-1.5 transition-all shadow-lg shadow-primary/20"
+          >
+            {t.offer.cta}
+            <ArrowRight size={11} />
+          </a>
         </div>
         <div className="flex justify-center items-center gap-4 w-full max-w-sm">
           <button 
@@ -571,7 +578,17 @@ export default function OfferPage({ userData, lang, setLang }: OfferPageProps) {
               </div>
               <div className="flex-grow">
                 <p className="font-bold text-lg">{t.offer.fullAccess}</p>
-                <p className="text-xs text-gray-500">{t.offer.originalValue} <span className="line-through">$79.63</span></p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">{t.offer.originalValue} <span className="line-through">$79.63</span></p>
+                  <a 
+                    href={t.offer.checkoutUrl}
+                    className="bg-[#32CD32] text-white px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight flex items-center gap-1.5 hover:scale-105 transition-transform"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {t.offer.cta}
+                    <ArrowRight size={12} />
+                  </a>
+                </div>
               </div>
               <div className="text-right">
                 <p className="font-black text-2xl text-[#32CD32]">$15<sup className="text-sm">99</sup></p>
